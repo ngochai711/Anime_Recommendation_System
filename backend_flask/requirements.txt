@@ -1,0 +1,14 @@
+wheel
+requests
+argon2-cffi
+flask
+flask-jwt-extended
+marshmallow-sqlalchemy
+python-dotenv
+sqlalchemy
+flask-socketio
+mysqlclient
+openpyxl
+gunicorn
+Authlib
+pandas
