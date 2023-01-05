@@ -6,7 +6,6 @@ flask-jwt-extended
 marshmallow-sqlalchemy
 python-dotenv
 sqlalchemy
-flask-socketio
 mysqlclient
 openpyxl
 gunicorn
