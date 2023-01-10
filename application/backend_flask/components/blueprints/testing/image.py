@@ -7,9 +7,6 @@ from ...config import STORAGE_PATH
 
 bpimage = Blueprint('bpimage', __name__)
 
-@bpimage.route('/test', methods = ['GET'])
-def test():
-    return "Hello"
 
 @bpimage.route('/upload', methods = ['POST'])
 def upload():
@@ -18,23 +15,18 @@ def upload():
     f = request.files['file']
     if f.filename == '':
         return jsonify({'msg': 'No selected file'}), 400
+    imagetype = request.args.get('imagetype')
+    if imagetype is None or (imagetype != 'anime' and imagetype != 'profile'):
+        return jsonify({'msg': 'Invalid type'}), 400
     ext = f.filename.split('.')[-1]
     Session = new_Scoped_session()
     try:
-        new_image = dbm.Image(Filename=f.filename, ID_ImageType=1)
+        new_image = dbm.ImageProfile(Filename=f.filename)
         Session.add(new_image)
         Session.flush()
-        # return jsonify({'msg': new_image.ID}), 200
-        # test = Session.query(dbm.Image).get(new_image.ID)
-        # if (test is new_image):
-        #     return jsonify({'msg': 'Success'}), 200
         new_image.Filename = str(new_image.ID) + '.' + ext
         Session.commit()
-        # Session.flush()
-        # Session.refresh(new_image)
-        f.save(os.path.join(STORAGE_PATH, str(new_image.ID) + '.' + ext))
-        
-        
+        f.save(os.path.join(STORAGE_PATH, imagetype, str(new_image.ID) + '.' + ext))
         return jsonify({'msg': 'File uploaded successfully', 'id': new_image.ID}), 200
     except Exception as e:
         Session.rollback()

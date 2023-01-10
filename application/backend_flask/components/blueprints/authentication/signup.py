@@ -21,8 +21,8 @@ def signup():
    Session = new_Scoped_session()
    try:
       email = request.json['email']
+      name = request.json['name']
       username = request.json['username']
-      phone = request.json['phone']
       
       existed_email = Session.query(dbm.Account.Email).filter(dbm.Account.Email==email, dbm.Account.Account_type==0).first()
       if (not existed_email is None):
@@ -34,7 +34,7 @@ def signup():
 
       password = make_hash(request.json['password'])
       
-      output = SetupAccount(Session, email, username, password, 0, 4, username, phone)
+      output = SetupAccount(Session, email, username, password, 0, name, None)
       if output[0] == True:
          Session.commit()
          access_token = create_access_token(identity=schema.dump(output[1]))

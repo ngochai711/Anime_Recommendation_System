@@ -1,6 +1,6 @@
 import argon2
 from os import environ
-from components.config import SecurityConfig as scfg, AuthConfig as acfg
+from components.config import SecurityConfig as scfg
 
 
 passwordhasher = argon2.PasswordHasher(time_cost=scfg.ARGON_TIMECOST, 

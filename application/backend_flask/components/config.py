@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 from os import environ
 from argon2 import Type as ArgonType
 
-HOME_DIRECTORY = '/media/knguyen02311/Data Disk/Learn Programming/Python/Flask/API_AnimeRecommendation/'
-STORAGE_PATH = '/media/knguyen02311/Data Disk/Learn Programming/Python/Flask/API_AnimeRecommendation/storage/'
+HOME_DIRECTORY = '/media/knguyen02311/Data Disk/DataScience/machine_learning/ML_cong_cu/Anime_Recommendation_System/application/backend_flask/'
+STORAGE_PATH = HOME_DIRECTORY + 'storage/'
 
 load_dotenv(dotenv_path=HOME_DIRECTORY + '.env')
 
@@ -18,7 +18,7 @@ class FlaskConfig:
    JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=21)
 
 class SQLAlchemyConfig:
-   SQLALCHEMY_DATABASE_URL = "mysql://" + DB_USERNAME + ":" + DB_PASSWORD + "@localhost/" + DB_NAME + "?unix_socket=/var/run/mysqld/mysqld.sock&charset=utf8mb4"
+   SQLALCHEMY_DATABASE_URL = "mysql://" + DB_USERNAME + ":" + DB_PASSWORD + "@localhost/" + DB_NAME + "?unix_socket=/var/run/mysqld/mysqld.sock"
    ECHO = False
    AUTO_FLUSH = True
    AUTO_COMMIT = False
