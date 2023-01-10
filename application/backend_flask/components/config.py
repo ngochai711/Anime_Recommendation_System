@@ -2,8 +2,14 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from os import environ
 from argon2 import Type as ArgonType
+import platform
 
-HOME_DIRECTORY = '/media/knguyen02311/Data Disk/DataScience/machine_learning/ML_cong_cu/Anime_Recommendation_System/application/backend_flask/'
+machineinfo = platform.uname()
+
+HOME_DIRECTORY = '/media/knguyen02311/Data Disk/DataScience/machine_learning/ML_cong_cu/Anime_Recommendation_System/application/backend_flask/' \
+if machineinfo[1] == "knguyen02311-LENOVO" \
+else '/var/lib/jenkins/workspace/anime-recommendation-development/application/backend_flask/'
+   
 STORAGE_PATH = HOME_DIRECTORY + 'storage/'
 
 load_dotenv(dotenv_path=HOME_DIRECTORY + '.env')

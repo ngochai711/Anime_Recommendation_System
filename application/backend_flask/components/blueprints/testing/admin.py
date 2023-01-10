@@ -12,7 +12,7 @@ bpadmin = Blueprint('bpadmin', __name__)
 
 @bpadmin.route('/serverinfo', methods = ['GET'])
 def serverinfo():
-    return jsonify({"system": platform.system(), "release": platform.release(), "version": platform.version()})
+    return jsonify({"system": platform.system(), "release": platform.release(), "version": platform.version(), "name": platform.uname()})
 
 
 @bpadmin.route('/clearimages/anime', methods = ['GET','POST'])
