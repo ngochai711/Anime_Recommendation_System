@@ -1,5 +1,4 @@
 from flask import jsonify
-import openpyxl, unicodedata
 from .dbmodels import *
 from .dbschemas import *
 from .dbsettings import new_Scoped_session

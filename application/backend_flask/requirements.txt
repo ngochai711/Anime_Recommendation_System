@@ -7,7 +7,5 @@ marshmallow-sqlalchemy
 python-dotenv
 sqlalchemy
 mysqlclient
-openpyxl
 gunicorn
-Authlib
 pandas
