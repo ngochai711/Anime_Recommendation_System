@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Inter);
+@import url('https://css.gg/search.css');
 
 * {
   padding: 0;
@@ -59,25 +60,47 @@ body {
 }
 
 /* search bar */
-.nav-bar .search-bar { 
-  background-color: #d9d9d9c5;
+.search-bar { 
+  background-color: #a2a2a2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 30%;
   height: 65%;
-  border-style: none;
+  color: #313131;
+  outline: none;
+  border: none;
   border-radius: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .search-bar input {
-  display: flex;
-  align-self: stretch;
   background-color: inherit;
-  border-style: none;
-  border-radius: 2rem;  
+  color: inherit; 
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  font-size: medium;
+  font-family: Inter;
 }
 
-.search-bar input:focus {
-  width: fit-content;
-  background-color: inherit;
-  border-style: none;
-  border-radius: 2rem;  
+.search-btn {
+  background-color: inherit;  
+  width: max-content;
+  height: max-content;
+  outline: none;
+  border: none;
+  border-radius: 2rem;
+}
+
+.search-btn i {
+  color: inherit;
+  align-self: center;
+  font-weight: bold;
+}
+
+.search-btn:hover {
+  cursor: pointer;
 }
