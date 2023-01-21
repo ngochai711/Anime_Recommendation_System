@@ -1,4 +1,5 @@
 import SearchBar from "./SearchBar"
+import CurrentUser from "./CurrentUser"
 
 export default function Header() {
     return (
@@ -16,6 +17,7 @@ export default function Header() {
                 </li>
             </ul>
             <SearchBar />
+            <CurrentUser />
         </nav>
     );
 }
