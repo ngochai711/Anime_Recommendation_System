@@ -1,0 +1,23 @@
+.container {
+    display: block;
+    width: fit-content;
+    height: fit-content;
+}
+
+.poster-slide {
+    background-color: blue;
+    padding: 0px;
+    margin: 0px;
+    width: 1920px;
+    height: 533px;
+}
+
+.poster-slide img {
+    width: inherit;
+    height: inherit;
+}
+
+.weekly-top-anime {
+    width: 1920px;
+    height: 600px;
+}
