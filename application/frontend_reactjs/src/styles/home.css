@@ -1,14 +1,13 @@
 .container {
     display: block;
+    width: 1920px;
+    height: fit-content;
 }
 
 /* top 10 weekly anime poster section */
 .poster-slide {
-    background-color: blue;
     position: relative;
-    padding: 0px;
-    margin: 0px;
-    width: 1920px;
+    width: inherit;
     height: 533px;
 }
 
@@ -20,7 +19,7 @@
 .poster-slide div {
     background: linear-gradient(#5b5b5b92 , #00000092) ;
     position: absolute;
-    top: 495px;
+    top: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,30 +28,29 @@
 }
 
 .poster-slide span {
+    background-color: #ffffff71;
     width: 15px;
     height: 15px;
-    border: 2px solid #ffffff81;
     border-radius: 50%;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
 
 .poster-slide span:hover {
-    background-color: #ffffff81;
+    background-color: #ffffff;
     cursor: pointer;
 }
 
-.selected-span {
-    background-color: #ffffff81;
-    width: 15px;
-    height: 15px;
-    border: 2px solid #ffffff81;
-    border-radius: 50%;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+.poster-slide .selected {
+    background-color: #ffffff;
 }
 
+/* top 10 weekly anime section */
 .weekly-top-anime {
-    width: 1920px;
-    height: 600px;
+    display: flex;
+    justify-content: center;
+    width: inherit;
+    height: fit-content;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
