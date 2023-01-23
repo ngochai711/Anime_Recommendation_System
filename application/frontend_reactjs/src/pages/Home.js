@@ -3,8 +3,8 @@ import '../styles/home.css';
 
 export default function Home() {
     return (
-        <div className="page-content">
-            <div className="container">
+        <div className="page">
+            <div>
                 <div className="page-section">
                     <div className="poster-slide">
                         <img src={process.env.PUBLIC_URL + '/DemonSlayer_Pos.jpg'} alt="poster"></img>
@@ -40,13 +40,18 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="anime-list">
-                            <Anime poster="https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/d48d4a62b0ac6381c87bd040b69b0a89.jpe" title="Kimetsu no Yaiba"/>
-                            <Anime poster="https://animet.net/upload/images/2019/6/youkoso-jitsuryoku-shijou-shugi-no-kyoushitsu-e-tv-thumbnail.jpg" title="Youkoso Jitsuryoku Shugi Shijou"/>
-                            <Anime poster="https://animet.net/upload/images/2019/6/youkoso-jitsuryoku-shijou-shugi-no-kyoushitsu-e-tv-thumbnail.jpg" title="Youkoso Jitsuryoku Shugi Shijou"/>
-                            <Anime poster="https://animet.net/upload/images/2019/6/youkoso-jitsuryoku-shijou-shugi-no-kyoushitsu-e-tv-thumbnail.jpg" title="Youkoso Jitsuryoku Shugi Shijou"/>
-                            <Anime poster="https://animet.net/upload/images/2019/6/youkoso-jitsuryoku-shijou-shugi-no-kyoushitsu-e-tv-thumbnail.jpg" title="Youkoso Jitsuryoku Shugi Shijou"/>
-                            <Anime poster="https://animet.net/upload/images/2019/6/youkoso-jitsuryoku-shijou-shugi-no-kyoushitsu-e-tv-thumbnail.jpg" title="Youkoso Jitsuryoku Shugi Shijou"/>
-                            <Anime poster="https://animet.net/upload/images/2019/6/youkoso-jitsuryoku-shijou-shugi-no-kyoushitsu-e-tv-thumbnail.jpg" title="Youkoso Jitsuryoku Shugi Shijou"/>
+                            <button className="prev-next-arrow"><i className="gg-chevron-left"></i></button>
+                            <Anime poster="https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/d48d4a62b0ac6381c87bd040b69b0a89.jpe" title="Kimetsu no Yaiba" />
+                            <Anime poster="https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/d48d4a62b0ac6381c87bd040b69b0a89.jpe" title="Kimetsu no Yaiba" />
+                            <Anime poster="https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/d48d4a62b0ac6381c87bd040b69b0a89.jpe" title="Kimetsu no Yaiba" />
+                            <Anime poster="https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/d48d4a62b0ac6381c87bd040b69b0a89.jpe" title="Kimetsu no Yaiba" />
+                            <Anime poster="https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/d48d4a62b0ac6381c87bd040b69b0a89.jpe" title="Kimetsu no Yaiba" />
+                            <Anime poster="https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/d48d4a62b0ac6381c87bd040b69b0a89.jpe" title="Kimetsu no Yaiba" />
+                            <Anime poster="https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/d48d4a62b0ac6381c87bd040b69b0a89.jpe" title="Kimetsu no Yaiba" />
+                            <button className="prev-next-arrow"><i className="gg-chevron-right"></i></button>
+                        </div>
+                        <div className="see-more-btn">
+                            <button>SEE MORE POPULAR THIS WEEK</button>
                         </div>
                     </div>
                 </div>

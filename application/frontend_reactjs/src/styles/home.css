@@ -1,8 +1,5 @@
-.container {
-    display: block;
-    width: 1920px;
-    height: fit-content;
-}
+@import url(https://css.gg/chevron-left.css);
+@import url(https://css.gg/chevron-right.css);
 
 /* top 10 weekly anime poster section */
 .poster-slide {
@@ -45,14 +42,14 @@
     background-color: #ffffff;
 }
 
-/* top 10 weekly anime section */
+/* top 10 weekly anime list section */
 .weekly-top-anime {
     background-color: #232020;
     position: relative;
     display: block;
     justify-content: center;
     width: 950px;
-    height: 350px;
+    height: 340px;
     margin-top: 3rem;
     margin-bottom: 3rem;
 }
@@ -60,5 +57,62 @@
 .anime-list {
     display: flex;
     justify-content: center;
-    margin-top: 4rem;
+    margin-top: 3rem;
+}
+
+.prev-next-arrow {
+    background-color: transparent;
+    align-self: center;
+    height: fit-content;
+    border: none;
+    outline: none;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.prev-next-arrow:hover {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.gg-chevron-left::after {
+    color: #ffffff;
+    width: 15px;
+    height: 15px;
+    border-bottom: 0.3rem solid;
+    border-left: 0.3rem solid;
+}
+
+.gg-chevron-right::after {
+    color: #ffffff;
+    width: 15px;
+    height: 15px;
+    border-bottom: 0.3rem solid;
+    border-right: 0.3rem solid;
+}
+
+.see-more-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.see-more-btn button {
+    background-color: #494949;
+    color: #ffffff;
+    width: 250px;
+    height: 40px;
+    outline: none;
+    border: none;
+    font-weight: bold;
+}
+
+.see-more-btn button:hover {
+    background-color: #5f5f5f;
+    cursor: pointer;
+}
+
+.see-more-btn button:active {
+    background-color: #4b4b4b;
+    cursor: pointer;
 }
