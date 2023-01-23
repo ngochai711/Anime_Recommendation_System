@@ -1,53 +1,58 @@
 @import url(https://css.gg/chevron-left.css);
 @import url(https://css.gg/chevron-right.css);
 
-/* top 10 weekly anime poster section */
-.poster-slide {
-    position: relative;
-    width: inherit;
-    height: 533px;
-}
-
-.poster-slide img {
-    width: inherit;
-    height: inherit;
-}
-
-.poster-slide div {
-    background: linear-gradient(#5b5b5b92 , #00000092) ;
-    position: absolute;
-    top: 500px;
+/* poster slider section */
+.slide-layout div {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: inherit;
+    width: 1920px;
+    height: 533px;
+    background-size: cover;
+}
+
+.indicators {
+    background: linear-gradient(#5b5b5b92 , #00000092) ;
+    position: absolute;
+    top: 530px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1920px;
     height: 40px;
 }
 
-.poster-slide span {
+.indicator {
     background-color: #ffffff71;
+    position: relative;
     width: 15px;
     height: 15px;
+    border: none;
     border-radius: 50%;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
 
-.poster-slide span:hover {
+.indicator.active {
+    background-color: #ffffff;
+}
+
+.indicator:hover {
     background-color: #ffffff;
     cursor: pointer;
 }
 
-.poster-slide .selected {
-    background-color: #ffffff;
+/* top 10 weekly anime list section */
+.top-10-weekly-list {
+    background-color: #4b4b4b;
+    width: 950px;
+    height: 300px;
 }
 
-/* top 10 weekly anime list section */
 .weekly-top-anime {
     background-color: #232020;
     position: relative;
     display: block;
-    justify-content: center;
     width: 950px;
     height: 340px;
     margin-top: 3rem;
@@ -57,7 +62,9 @@
 .anime-list {
     display: flex;
     justify-content: center;
-    margin-top: 3rem;
+    width: 950px;
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
 }
 
 .prev-next-arrow {
@@ -115,4 +122,12 @@
 .see-more-btn button:active {
     background-color: #4b4b4b;
     cursor: pointer;
+}
+
+/* recommended anime section */
+.recommended-anime {
+    background-color: #232020;
+    width: 950px;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
 }

@@ -1,6 +1,7 @@
 import '../styles/anime.css'
 
-export default function Anime({ poster, title }) {
+export default function Anime({ poster, title, display }) {
+    if (display !== "none" )
     return (
         <div className="anime">
             <div className="anime-pic">
