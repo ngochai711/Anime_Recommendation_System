@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Pagination from '../components/Pagination';
 import Anime from '../components/Anime'
 import '../styles/home.css'
@@ -106,9 +106,9 @@ export default function Home() {
                     </div>
                 </Slide>
             </div>
-            <div className="page-section" style={{ paddingTop: "3rem" }}>
+            <div className="page-section" style={{ paddingTop: "7.5rem" }}>
                 <div className="content-container-1">
-                    <h1 className="title-1" style={{ paddingBottom: "1rem" }}>TOP 10 ANIME THIS WEEK</h1>
+                    <h1 className="title-1">TOP 10 ANIME THIS WEEK</h1>
                     <div className="anime-list">
                         <button className="prev-next-arrow"><i className="gg-chevron-left"></i></button>
                         <Anime poster="https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/d48d4a62b0ac6381c87bd040b69b0a89.jpe" title="Kimetsu no Yaiba" />
@@ -123,9 +123,9 @@ export default function Home() {
                     <button className="btn-1">SEE MORE POPULAR THIS WEEK</button>
                 </div>
             </div>
-            <div className="page-section" style={{ paddingTop: "5rem", paddingBottom: "5rem"}}>
+            <div className="page-section" style={{ paddingTop: "7.5rem", paddingBottom: "7.5rem"}}>
                 <div className="content-container-2">
-                    <h1 className="title-1" style={{ paddingBottom: "1rem" }}>RECOMMENDED FOR YOU</h1>
+                    <h1 className="title-1">RECOMMENDED FOR YOU</h1>
                     <Pagination itemsPerPage={14} items={paginatedItems} />
                 </div>
             </div>

@@ -16,6 +16,13 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+/* banner */
+.banner {
+  width: 1920px;
+  height: 273px;
+  box-shadow: 0px 15px 5px #0000007f
+}
+
 /* header */
 .header {
   background-color: #000000;
@@ -68,7 +75,7 @@ body::-webkit-scrollbar {
   margin-left: auto;
   margin-right: auto;
   padding-top: 3rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 3rem;
   padding-left: 4rem;
   padding-right: 4rem;
 }
@@ -99,9 +106,23 @@ body::-webkit-scrollbar {
 /* titles */
 .title-1 {
   color: #ffffff;
+  padding-bottom: 1rem;
   font-weight: bolder;
   font-size: x-large;
   text-align: center;
+  text-decoration: underline;
+  text-decoration-color: #FF7D05;
+  text-decoration-thickness: 4px;
+  text-underline-offset: 0.5em;
+}
+
+.title-2 {
+  color: #ffffff;
+  padding-bottom: 1rem;
+  font-weight: bolder;
+  font-size: x-large;
+  text-align: left;
+  text-indent: 2.5em;
   text-decoration: underline;
   text-decoration-color: #FF7D05;
   text-decoration-thickness: 4px;
