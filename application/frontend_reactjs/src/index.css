@@ -37,7 +37,6 @@ body::-webkit-scrollbar {
   width: 1920px;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 3.1rem;
 }
 
 .page-section {
@@ -58,6 +57,20 @@ body::-webkit-scrollbar {
   width: 950px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.paginated-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 950px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
 }
 
 /* button */

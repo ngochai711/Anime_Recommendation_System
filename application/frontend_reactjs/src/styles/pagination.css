@@ -1,0 +1,17 @@
+.pagination {
+    color: #FF7D05;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+  }
+  
+  .pagination li {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .pagination li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }

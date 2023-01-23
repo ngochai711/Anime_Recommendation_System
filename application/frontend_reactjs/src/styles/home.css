@@ -14,7 +14,7 @@
 .indicators {
     background: linear-gradient(#5b5b5b92 , #00000092) ;
     position: absolute;
-    top: 530px;
+    top: 480px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,12 +122,4 @@
 .see-more-btn button:active {
     background-color: #4b4b4b;
     cursor: pointer;
-}
-
-/* recommended anime section */
-.recommended-anime {
-    background-color: #232020;
-    width: 950px;
-    margin-top: 3rem;
-    margin-bottom: 4rem;
 }
