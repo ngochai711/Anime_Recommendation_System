@@ -47,10 +47,18 @@
 
 /* top 10 weekly anime section */
 .weekly-top-anime {
-    display: flex;
+    background-color: #232020;
+    position: relative;
+    display: block;
     justify-content: center;
-    width: inherit;
-    height: fit-content;
+    width: 950px;
+    height: 350px;
     margin-top: 3rem;
     margin-bottom: 3rem;
+}
+
+.anime-list {
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
 }

@@ -1,0 +1,72 @@
+/* general */
+.anime {
+    position: relative;
+    display: block;
+    width: 105px;
+}
+
+.anime:hover {
+    cursor: pointer;
+}
+
+/* anime poster */
+.anime-pic {
+    display: flex;
+    justify-content: center;
+    width: inherit;
+    height: 108px;
+}
+
+.anime-pic img {
+    width: 81px;
+    height: inherit;
+}
+
+/* anime title */
+.anime-title {
+    color: #ffffff;
+    display: -webkit-box;
+    width: inherit;
+    margin-top: 0.5rem;
+    font-size: 0.9em;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.anime-title:hover {
+    text-decoration: underline;
+}
+
+/* add to favorite */
+.add-to-favorite {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.add-to-favorite button {
+    background-color: #171717d0;
+    color: #ffffff;
+    position: absolute;
+    top: -20px;
+    width: 81px;
+    height: 20px;
+    justify-self: center;
+    text-align: center;
+    font-size: 0.5em;
+    outline: none;
+    border: none;
+}
+
+.add-to-favorite button:hover {
+    background-color: #171717ef;
+    top: -30px;
+    width: 90px;
+    height: 30px;
+    font-size: 0.8em;
+    cursor: pointer;
+    
+}
