@@ -1,11 +1,12 @@
 wheel
 requests
 argon2-cffi
-flask
+flask==1.1.4
+MarkupSafe==2.0.1
 flask-jwt-extended
 marshmallow-sqlalchemy
 python-dotenv
-sqlalchemy
+sqlalchemy==1.4.42
 mysqlclient
 gunicorn
 pandas
