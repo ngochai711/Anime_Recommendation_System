@@ -1,0 +1,48 @@
+.login-container {
+    width: 400px;
+    margin-top: 5rem;
+    padding: 3rem 3rem 3rem 3rem;
+    border-radius: 0.6rem;
+}
+
+.login-title {
+    width: fit-content;
+    text-transform: capitalize;
+    font-size: 2.5em;
+}
+
+.login-form {
+    color: #ffffff;
+    display: block;
+    margin-top: 2rem;
+}
+
+.auth-label {
+    display: block;
+    margin-top: 1rem;
+}
+
+.auth-input {
+    display: block;
+    width: 300px;
+    margin: 0.5rem auto 0rem auto;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.3em;
+    outline: none;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.auth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: fit-content;
+    text-decoration: none;
+    font-size: 1.3em;
+    font-weight: bolder;
+    margin: 1rem auto 0rem auto;
+    padding: 0.8rem 0.5rem;
+    border-radius: 0.5rem;
+}
