@@ -1,7 +1,7 @@
-import SearchBar from "./SearchBar"
-import User from "./User"
-import '../styles/header.css'
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
+import User from "./User";
+import '../styles/header.css';
 
 export default function Header() {
     return (

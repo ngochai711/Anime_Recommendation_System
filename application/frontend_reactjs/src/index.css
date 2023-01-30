@@ -127,6 +127,24 @@ body::-webkit-scrollbar {
   cursor: pointer;
 }
 
+.btn-3 {
+  background-color: #000000;
+  color: #ffffff;
+  display: block;
+  outline: none;
+  border: none;
+}
+
+.btn-3:hover {
+  background-color: #0000007b;
+  cursor: pointer;
+}
+
+.btn-3:active {
+  background-color: #000000b3;
+  cursor: pointer;
+}
+
 /* titles */
 .title-1 {
   color: #ffffff;
