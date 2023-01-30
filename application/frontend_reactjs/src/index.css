@@ -103,6 +103,30 @@ body::-webkit-scrollbar {
   background-color: #4b4b4b;
 }
 
+.btn-2 {
+  background-color: #1E145C;
+  color: #ffffff;
+  display: block;
+  width: 210px;
+  height: 40px;
+  font-size: medium;
+  font-weight: bolder;
+  margin-left: auto;
+  margin-right: auto;
+  outline: none;
+  border: none;
+}
+
+.btn-2:hover {
+  background-color: #221866;
+  cursor: pointer;
+}
+
+.btn-2:active {
+  background-color: #140c4b;
+  cursor: pointer;
+}
+
 /* titles */
 .title-1 {
   color: #ffffff;
@@ -127,4 +151,17 @@ body::-webkit-scrollbar {
   text-decoration-color: #FF7D05;
   text-decoration-thickness: 4px;
   text-underline-offset: 0.5em;
+}
+
+.title-3 {
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: x-large;
+  text-transform: uppercase;
+}
+
+.sub-title-1 {
+  display: inline;
+  color: #ffffff;
+  font-weight: bold;
 }

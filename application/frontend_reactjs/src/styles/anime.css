@@ -1,8 +1,11 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
+
 /* general */
 .anime {
     position: relative;
     display: block;
     width: 105px;
+    text-decoration: none;
 }
 
 .anime:hover {
@@ -68,4 +71,108 @@
     height: 30px;
     font-size: 0.8em;
     cursor: pointer;
+}
+
+/* anime detail */
+.anime-info {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.anime-overview {
+    color: #ffffff;
+    display: flex;
+    justify-content: space-evenly;
+    width: 1100px;
+    margin-right: 1rem;
+    padding: 1.5rem;
+}
+
+.anime-overview img {
+    display: block;
+    width: 200px;
+    height: 300px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.anime-description {
+    display: -webkit-box;
+    margin-top: 1rem;
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+
+.anime-alt-titles {
+    display: -webkit-box;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    padding-left: 0.5rem;
+    font-size: medium;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.anime-genre {
+    display: -webkit-box;
+    width: 500px;
+    overflow-wrap: break-word;
+}
+
+.genre {
+    background-color: #494949;
+    color: #ffffff;
+    display: inline-block;
+    width: fit-content;
+    height: 22.5px;
+    min-width: 54px;
+    margin: 0.1rem 0.3rem;
+    padding: 0.2rem 0.5rem;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: small;
+    outline: none;
+    border: none;
+    border-radius: 0.7rem;
+}
+
+.anime-more-info {
+    margin-top: 1rem;
+    font-size: small;
+    font-weight: lighter;
+}
+
+.anime-rating {
+    display: inline-flex;
+    align-items: center;
+}
+
+.checked {
+    margin-top: 1rem;
+    margin-left: 0.3rem;
+    color: #E5730A;
+}
+
+.un-checked {
+    margin-top: 1rem;
+    margin-left: 0.3rem;
+    color: #898989;
+}
+
+.uncheck
+
+.anime-produced-by {
+    width: 300px;
+    margin-left: 1rem;
 }
