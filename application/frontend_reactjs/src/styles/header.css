@@ -1,0 +1,129 @@
+@import url('https://css.gg/search.css');
+
+/* navigation bar */
+.nav-bar {
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1920px;
+  height: inherit;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 7rem;
+  padding-right: 5rem;
+}
+
+
+/* logo */
+.web-logo {
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 2em;
+}
+
+/* nav menu */
+.nav-bar ul {
+  display: flex;
+  align-self: stretch;
+  list-style: none;
+}
+
+.nav-bar li {
+  display: flex;
+  padding: 0 2rem 0 2rem;
+}
+
+.nav-bar li:hover {
+  background-color: #7777773c;
+  cursor: pointer;
+}
+
+.nav-bar a {
+  color: inherit;
+  align-self: center;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+/* search bar */
+.search-bar {
+  background-color: #D9D9D9;
+  color: #313131;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 600px;
+  height: 35px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  outline: none;
+  border: none;
+  border-radius: 2rem;
+}
+
+.search-bar input {
+  background-color: inherit;
+  color: inherit;
+  width: 500px;
+  height: 35px;
+  outline: none;
+  border: none;
+  font-size: medium;
+}
+
+.search-btn {
+  background-color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border: none;
+}
+
+.search-btn:hover {
+  cursor: pointer;
+}
+
+.search-btn i {
+  color: inherit;
+  font-weight: bold;
+}
+
+/* user */
+.user {
+  background-color: inherit;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 200px;
+  height: inherit;
+}
+
+.user:hover {
+  background-color: #7777773c;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  border: solid #FFFFFF;
+  border-width: 3px;
+  border-radius: 50%;
+}
+
+.user-name {
+  color: inherit;
+  width: fit-content;
+  height: fit-content;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: bold;
+  font-size: large;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: underline;
+}

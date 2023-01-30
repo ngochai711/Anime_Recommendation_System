@@ -1,0 +1,28 @@
+.recommended-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: inherit;
+    height: auto;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+}
+
+.recommended-list ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    overflow-x: scroll;
+    list-style: none;
+}
+
+.recommended-list ul::-webkit-scrollbar {
+    height: 5px;
+}
+
+.recommended-list ul::-webkit-scrollbar-thumb {
+    background-color: #565656;
+    border-radius: 3em;
+}

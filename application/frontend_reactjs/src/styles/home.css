@@ -1,0 +1,126 @@
+@import url(https://css.gg/chevron-left.css);
+@import url(https://css.gg/chevron-right.css);
+
+/* poster slider section */
+.slide-layout div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1920px;
+    height: 533px;
+    background-size: cover;
+}
+
+.indicators {
+    background: linear-gradient(#5b5b5b92 , #00000092) ;
+    position: absolute;
+    top: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 10px 5px #0000007f;
+    width: 1920px;
+    height: 40px;
+}
+
+.indicator {
+    background-color: #ffffff71;
+    position: relative;
+    width: 15px;
+    height: 15px;
+    border: none;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.indicator.active {
+    background-color: #ffffff;
+}
+
+.indicator:hover {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+/* top 10 weekly anime list section */
+.top-10-weekly-list {
+    background-color: #4b4b4b;
+    width: 950px;
+    height: 300px;
+}
+
+.weekly-top-anime {
+    background-color: #232020;
+    position: relative;
+    display: block;
+    width: 950px;
+    height: 340px;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.anime-list {
+    display: flex;
+    justify-content: center;
+    width: 950px;
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+}
+
+.prev-next-arrow {
+    background-color: transparent;
+    align-self: center;
+    height: fit-content;
+    border: none;
+    outline: none;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.prev-next-arrow:hover {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.gg-chevron-left::after {
+    color: #ffffff;
+    width: 15px;
+    height: 15px;
+    border-bottom: 0.3rem solid;
+    border-left: 0.3rem solid;
+}
+
+.gg-chevron-right::after {
+    color: #ffffff;
+    width: 15px;
+    height: 15px;
+    border-bottom: 0.3rem solid;
+    border-right: 0.3rem solid;
+}
+
+.see-more-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.see-more-btn button {
+    background-color: #494949;
+    color: #ffffff;
+    width: 250px;
+    height: 40px;
+    outline: none;
+    border: none;
+    font-weight: bold;
+}
+
+.see-more-btn button:hover {
+    background-color: #5f5f5f;
+    cursor: pointer;
+}
+
+.see-more-btn button:active {
+    background-color: #4b4b4b;
+    cursor: pointer;
+}
