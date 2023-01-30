@@ -83,12 +83,13 @@
     margin-right: auto;
 }
 
+/* overview */
 .anime-overview {
     color: #ffffff;
     display: flex;
     justify-content: space-evenly;
     width: 1100px;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
     padding: 1.5rem;
 }
 
@@ -112,8 +113,8 @@
 }
 
 .anime-alt-titles {
+    color: #ffffffc0;
     display: -webkit-box;
-    color: #ffffff;
     margin-bottom: 2rem;
     padding-left: 0.5rem;
     font-size: medium;
@@ -148,6 +149,7 @@
 }
 
 .anime-more-info {
+    color: #ffffffc0;
     margin-top: 1rem;
     font-size: small;
     font-weight: lighter;
@@ -170,9 +172,38 @@
     color: #898989;
 }
 
-.uncheck
-
-.anime-produced-by {
+/* producers */
+.anime-producer {
+    display: block;
     width: 300px;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
+    padding: 1.5rem;
+}
+
+.anime-producer div {
+    display: -webkit-box;
+    min-height: 60px;
+    max-height: 150px;
+    margin-top: 0.5rem;
+    -webkit-box-orient: vertical;
+}
+
+.anime-producer div div {
+    display: -webkit-box;
+    max-height: 100px;
+    overflow: auto;
+}
+
+.anime-producer div div::-webkit-scrollbar {
+    width: 5px;
+}
+
+.anime-producer div div::-webkit-scrollbar-thumb {
+    background-color: #00000037;
+    border-radius: 3em;
+}
+
+.anime-producer p {
+    color: #ffffffc0;
+    margin-left: 5rem;
 }
