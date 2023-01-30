@@ -40,7 +40,7 @@ export default function Details() {
                             </div>
                             <div style={{ display: "flex", marginTop: "1rem" }}>
                                 <div style={{ width: "200px" }}>
-                                    <Rating />
+                                    <Rating score={ 8.24 }/>
                                     <p className="anime-more-info">Episodes: 12</p>
                                     <p className="anime-more-info">Type: TV Series</p>
                                 </div>
