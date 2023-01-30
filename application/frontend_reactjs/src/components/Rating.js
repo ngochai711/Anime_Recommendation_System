@@ -11,10 +11,10 @@ export default function Rating({ score }) {
         <div className="anime-rating">
             <p className="anime-more-info">Rating:</p>
             <span className={ rating_star_1 }></span>
-            <span class={ rating_star_2 }></span>
-            <span class={ rating_star_3 }></span>
-            <span class={ rating_star_4 }></span>
-            <span class={ rating_star_5 }></span>
+            <span className={ rating_star_2 }></span>
+            <span className={ rating_star_3 }></span>
+            <span className={ rating_star_4 }></span>
+            <span className={ rating_star_5 }></span>
         </div>
     );
 }
