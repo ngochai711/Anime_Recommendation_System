@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Favorites from './pages/Favorites';
 import Details from './pages/Details';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import { Route, Routes } from "react-router-dom";
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/favorites" element={<Favorites />} />
         <Route path='/details' element={<Details />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
       <Header />
       <Footer />
