@@ -3,7 +3,8 @@ from .dbmodels import *
 from .dbschemas import *
 from .dbsettings import new_Scoped_session
 import pandas as pd
-from .config import STORAGE_PATH
+import numpy as np
+from .config import STORAGE_PATH, HOME_DIRECTORY
 import requests
 
 
@@ -44,24 +45,47 @@ def TruncateTables(tables: list):
     Session.execute("SET FOREIGN_KEY_CHECKS=1;")
     Session.commit()
     Session.close()
-    
+
+
+def GetImageFolder(image_type):
+    if image_type == 1: folder = 'anime/'
+    elif image_type == 2: folder = 'profile/'
+    return folder
+
 
 def SaveImageFromURL(Session, url, image_type, anime_id):
     r = requests.get(url)
     if r.status_code==200:
         filename = url.split('/')[-1]
-        open(os.path.join(STORAGE_PATH, image_type, filename), "wb").write(r.content)
-        if image_type == 'profile':
-            image = ImageProfile(Filename=filename)
-        elif image_type == 'anime':
-            image = ImageAnime(Filename=filename, ID_Anime=anime_id)
+        if image_type == 1: image = ImageAnime(Filename=filename, ID_Anime=anime_id)
+        elif image_type == 2: image = ImageProfile(Filename=filename)
         Session.add(image)
         Session.flush()
         ext = image.Filename.split('.')[-1]
         image.Filename = str(image.ID) + '.' + ext
+        open(STORAGE_PATH + GetImageFolder(image_type) + image.Filename, "wb").write(r.content)
         Session.flush()
         return [True, image.ID]
-    return [False]
+    return [False, "Invalid response"]
+
+
+def SaveProfileImage(Session, file):
+    if file.filename == "":
+        return [False, "No file selected"]
+    ext = file.filename.split('.')[-1]
+    if ext not in ['jpg', 'jpeg', 'png']:
+        return [False, "File extension not supported"]
+    try:
+        new_image = ImageProfile(Filename="temp")
+        Session.add(new_image)
+        Session.flush()
+        new_image.Filename = str(new_image.ID) + '.' + ext
+        Session.commit()
+        file.save(os.path.join(STORAGE_PATH, 'profile/', str(new_image.ID) + '.' + ext))
+        return [True, new_image]
+    except Exception as e:
+        Session.rollback()
+        return [False, str(e)]
 
 
 def SetupAccount(Session, a_email, a_username, a_password, a_account_type, i_name, i_image=None):
@@ -104,3 +128,54 @@ def InsertTestAccounts(amount):
     except Exception as e:
         Session.rollback()
         return jsonify({"msg": "Incompleted", "err": str(e)})
+
+
+def InsertAnimes(Session):
+    TruncateTables({"ANIME", "ANIMERATING", "ANIMEINFO"})
+    anime_table = pd.read_csv(HOME_DIRECTORY + "../../dataset/db_anime.csv")
+    rating_table = pd.read_csv(HOME_DIRECTORY + "../../dataset/db_rating.csv")
+    anime_table = anime_table.replace({np.nan: None})
+    try:
+        for i, row in rating_table.iterrows():
+            new_rating = AnimeRating(Rating=row['Rating'])
+            Session.add(new_rating)
+        Session.flush()
+        
+        for i, row in anime_table.iterrows():
+            new_animeinfo = AnimeInfo(
+                ID = row['MAL_ID'],
+                Name_ENG = row['English name'],
+                Name_JPN = row['Japanese name'],
+                Synopsis = row['sypnopsis'],
+                Type = row['Type'],
+                Popularity = row['Popularity'],
+                Aired = row['Aired'],
+                Premiered = row['Premiered'],
+                Producers = row['Producers'],
+                Licensors = row['Licensors'],
+                Studio = row['Studios'],
+                Source = row['Source'],
+                Duration = row['Duration']
+            )
+            Session.add(new_animeinfo)
+            Session.flush()
+            new_anime = Anime(
+                ID = row['MAL_ID'],
+                Name = row['Name'],
+                Genres = row['Genres'],
+                Score = row['Score'],
+                Episodes = row['Episodes'],
+                ID_AnimeInfo = row['MAL_ID'],
+                ID_AnimeRating = row['Rating']
+            )
+            Session.add(new_anime)
+            Session.flush()
+        return [True]
+    except Exception as e:
+        Session.rollback()
+        return [False, str(e)]
+    
+
+def InsertAnimeImages(Session):
+    
+    

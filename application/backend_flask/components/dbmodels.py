@@ -107,19 +107,14 @@ class View (Base):
     ID_Account = Column(ms.INTEGER, ForeignKey("ACCOUNT.ID"), nullable=False)
     rel_Account = relationship("Account", back_populates="rel_View")
         
-
-# ==============================================================================
-class AnimeType (Base):
-    __tablename__ = 'ANIMETYPE'
-    ID = Column(ms.INTEGER, primary_key=True)
-    Type = Column(ms.NVARCHAR(32), nullable=False)
-
     
 # ==============================================================================
 class AnimeRating (Base):
     __tablename__ = 'ANIMERATING'
     ID = Column(ms.INTEGER, primary_key=True)
     Rating = Column(ms.NVARCHAR(32), nullable=False)
+    
+    rel_Anime = relationship("Anime", back_populates="rel_AnimeRating")
 
     
 # ==============================================================================
@@ -127,12 +122,15 @@ class Anime (Base):
     __tablename__ = 'ANIME'
     ID = Column(ms.INTEGER, primary_key=True)
     Name = Column(ms.NVARCHAR(128), nullable=False)
-    Genres = Column(ms.JSON)
+    Genres = Column(ms.NVARCHAR(128))
     Score = Column(ms.FLOAT)
-    Episodes = Column(ms.SMALLINT)
+    Episodes = Column(ms.NVARCHAR(10))
     
     ID_AnimeInfo = Column(ms.INTEGER, ForeignKey("ANIMEINFO.ID"), nullable=False)
     rel_AnimeInfo = relationship("AnimeInfo", cascade='save-update, merge, delete', back_populates="rel_Anime")
+    
+    ID_AnimeRating = Column(ms.INTEGER, ForeignKey("ANIMERATING.ID"), nullable=False)
+    rel_AnimeRating = relationship("AnimeRating", back_populates="rel_Anime")
     
     # ImageAnime references
     rel_ImageAnime = relationship("ImageAnime", cascade='save-update, merge, delete', back_populates="rel_Anime")
@@ -144,13 +142,14 @@ class AnimeInfo (Base):
     ID = Column(ms.INTEGER, primary_key=True)
     Name_ENG = Column(ms.NVARCHAR(128))
     Name_JPN = Column(ms.NVARCHAR(128))
-    Synopsis = Column(ms.NVARCHAR(512))
+    Synopsis = Column(ms.NVARCHAR(4000))
+    Type = Column(ms.NVARCHAR(16))
     Popularity = Column(ms.SMALLINT)
-    Aired = Column(ms.NVARCHAR(64))
+    Aired = Column(ms.NVARCHAR(128))
     Premiered = Column(ms.NVARCHAR(32))
-    Producers = Column(ms.NVARCHAR(64))
-    Licensors = Column(ms.NVARCHAR(64))
-    Studio = Column(ms.NVARCHAR(64))
+    Producers = Column(ms.NVARCHAR(512))
+    Licensors = Column(ms.NVARCHAR(256))
+    Studio = Column(ms.NVARCHAR(256))
     Source = Column(ms.NVARCHAR(32))
     Duration = Column(ms.NVARCHAR(64))
     
@@ -158,5 +157,5 @@ class AnimeInfo (Base):
     
     
 # ==============================================================================
-# Base.metadata.drop_all(Engine)
+#Base.metadata.drop_all(Engine)
 Base.metadata.create_all(Engine)

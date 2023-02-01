@@ -1,7 +1,2 @@
-anime_with_synopsis.csv
-anime.csv
-animelist.csv
-rating_complete.csv
-watching_status.csv
-
+*.csv
 html\ folder/

@@ -10,3 +10,4 @@ sqlalchemy==1.4.42
 mysqlclient
 gunicorn
 pandas
+gi-scraper
