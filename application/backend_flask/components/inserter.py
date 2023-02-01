@@ -177,5 +177,4 @@ def InsertAnimes(Session):
     
 
 def InsertAnimeImages(Session):
-    
-    
+    pass
