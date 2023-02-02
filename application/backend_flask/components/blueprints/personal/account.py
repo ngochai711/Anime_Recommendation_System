@@ -21,7 +21,7 @@ def protected():
    return jsonify(current_user), 200 # ok
 
 
-@bpaccount.route("/getinfo", methods=['GET'])
+@bpaccount.route("/info/get", methods=['GET'])
 @jwt_required()
 def getinfo():
    current_user = get_jwt_identity()   
@@ -44,7 +44,7 @@ def getinfo():
       return account_output("Incompleted", str(e), "")
    
 
-@bpaccount.route("/setinfo", methods=['POST', 'PUT'])
+@bpaccount.route("/info/set", methods=['POST', 'PUT'])
 @jwt_required()
 def changeinfo():
    current_user = get_jwt_identity()

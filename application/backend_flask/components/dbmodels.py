@@ -74,7 +74,8 @@ class ImageAnime (Base):
 
 @event.listens_for(ImageAnime, 'after_delete')
 def receive_after_delete(mapper, connection, target):
-    os.remove(os.path.join(STORAGE_PATH, 'anime/', target.Filename))
+    if os.path.exists(os.path.join(STORAGE_PATH, 'anime/', target.Filename)):
+        os.remove(os.path.join(STORAGE_PATH, 'anime/', target.Filename))
 
 
 # ==============================================================================

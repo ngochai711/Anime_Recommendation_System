@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager, get_jwt, get_jwt_identity, create_access_token
 from .config import FlaskConfig as fcfg
 from components.blueprints.authentication import signup, signin
@@ -8,6 +9,7 @@ from components.blueprints.admin import database
 
 def create_app():
     App = Flask(__name__)
+    cors = CORS(App)
     App.config.from_object(fcfg)
     jwt = JWTManager(App)
 

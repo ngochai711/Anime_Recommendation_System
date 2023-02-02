@@ -10,7 +10,7 @@ HOME_DIRECTORY = '/media/knguyen02311/Data Disk/DataScience/machine_learning/ML_
 if machineinfo[1] == "knguyen02311-LENOVO" \
 else '/var/lib/jenkins/workspace/anime-recommendation-development/application/backend_flask/'
    
-STORAGE_PATH = HOME_DIRECTORY + 'storage/'
+STORAGE_PATH = HOME_DIRECTORY + '../storage/'
 
 load_dotenv(dotenv_path=HOME_DIRECTORY + '.env')
 

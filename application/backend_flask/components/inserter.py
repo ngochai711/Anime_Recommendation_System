@@ -6,6 +6,8 @@ import pandas as pd
 import numpy as np
 from .config import STORAGE_PATH, HOME_DIRECTORY
 import requests
+from components.imagescraping import get_original_images_custom
+from urllib.parse import urlparse
 
 
 # def InsertLocation2():
@@ -54,14 +56,16 @@ def GetImageFolder(image_type):
 
 
 def SaveImageFromURL(Session, url, image_type, anime_id):
-    r = requests.get(url)
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36"}
+    r = requests.get(url, headers=headers)
     if r.status_code==200:
-        filename = url.split('/')[-1]
-        if image_type == 1: image = ImageAnime(Filename=filename, ID_Anime=anime_id)
-        elif image_type == 2: image = ImageProfile(Filename=filename)
+        urlname = urlparse(url)
+        filename = os.path.basename(urlname.path)
+        ext = filename.split('.')[-1]
+        if image_type == 1: image = ImageAnime(Filename="temp", ID_Anime=anime_id)
+        elif image_type == 2: image = ImageProfile(Filename="temp")
         Session.add(image)
         Session.flush()
-        ext = image.Filename.split('.')[-1]
         image.Filename = str(image.ID) + '.' + ext
         open(STORAGE_PATH + GetImageFolder(image_type) + image.Filename, "wb").write(r.content)
         Session.flush()
@@ -177,4 +181,22 @@ def InsertAnimes(Session):
     
 
 def InsertAnimeImages(Session):
-    pass
+    Session = new_Scoped_session()
+    try:
+        # old = Session.query(ImageAnime).all()
+        # Session.remove(old)
+        # Session.flush()
+        anime_table = pd.read_csv(HOME_DIRECTORY + "../../dataset/db_anime.csv")
+        for index, row in anime_table.iterrows():
+            if index % 5 == 0: print(f"Currently at anime id {row['MAL_ID']}")
+            image_list = get_original_images_custom(row['Name'])
+            for key, value in image_list.items():
+                if key <= 3: 
+                    output = SaveImageFromURL(Session, str(value), 1, row['MAL_ID'])
+                    if output[0] == False:
+                        print(f"Anime id {row['MAL_ID']} with link '{value}' got invalid response, skipping")
+                else: break
+        Session.commit()
+        return [True]
+    except Exception as e:
+        return [False, str(e)]

@@ -23,3 +23,16 @@ class AccountInfoSchema(Schema):
     Name = auto_field()
     Birthdate = auto_field()
     Gender = auto_field()
+    
+    
+class AnimeSchema(Schema):
+    class Meta:
+        model = dbm.Anime
+        load_instance = True
+        
+    ID = auto_field()
+    Name = auto_field()
+    Genres = auto_field()
+    Score = auto_field()
+    Episodes = auto_field()
+    rel_AnimeImage = auto_field()

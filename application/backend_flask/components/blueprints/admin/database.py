@@ -1,24 +1,29 @@
+import json
 from flask import Blueprint, request, jsonify
 from ...dbmodels import *
 from ...dbsettings import new_Scoped_session, Base, Engine
-from ...inserter import InsertAnimes
+from ...inserter import InsertAnimes, InsertAnimeImages, TruncateTables
 from ...config import DB_NAME, STORAGE_PATH
+from components.imagescraping import get_original_images_custom
 
 bpdatabase = Blueprint('bpdatabase', __name__)
 
 
-@bpdatabase.route('database/clearimages/anime', methods = ['GET','POST'])
+@bpdatabase.route('database/clear/imageanime', methods = ["DELETE"])
 def clearimages():
     print("Clearing images...")
     try:
         Session = new_Scoped_session()
-        Session.query(ImageAnime).remove()
-        return {"Images cleared"}
+        images = Session.query(ImageAnime).all()
+        Session.delete(images)
+        Session.commit()
+        TruncateTables({"IMAGEANIME"})
+        return "Images cleared"
     except Exception as e:
-        return {str(e)}
+        return str(e)
 
 
-@bpdatabase.route('/database/reset', methods = ['POST'])
+@bpdatabase.route('/database/reset', methods = ['DELETE'])
 def dropalltables():
     clearimages()
     print("Dropping all tables...")
@@ -34,8 +39,8 @@ def dropalltables():
     return "Done"
 
 
-@bpdatabase.route('/database/import', methods = ["POST"])
-def importdata():
+@bpdatabase.route('/database/import/anime', methods = ["POST"])
+def importanime():
     Session = new_Scoped_session()
     output = InsertAnimes(Session)
     if output[0]:
@@ -44,3 +49,13 @@ def importdata():
     else:
         Session.rollback()
         return f"Error: {output[1]}"
+    
+    
+
+@bpdatabase.route('/database/import/image', methods = ["POST"])
+def importimage():
+    Session = new_Scoped_session()
+    output = InsertAnimeImages(Session)
+    if output[0]:
+        return "Done"
+    else: return f"Error: {output[1]}"
