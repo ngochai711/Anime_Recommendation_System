@@ -35,4 +35,4 @@ class AnimeSchema(Schema):
     Genres = auto_field()
     Score = auto_field()
     Episodes = auto_field()
-    rel_AnimeImage = auto_field()
+    rel_ImageAnime = auto_field()
