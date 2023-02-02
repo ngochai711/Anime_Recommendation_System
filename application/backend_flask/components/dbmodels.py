@@ -158,5 +158,5 @@ class AnimeInfo (Base):
     
     
 # ==============================================================================
-#Base.metadata.drop_all(Engine)
+Base.metadata.drop_all(Engine)
 Base.metadata.create_all(Engine)
