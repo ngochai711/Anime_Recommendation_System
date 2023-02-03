@@ -52,9 +52,9 @@ def importanime():
     
     
 
-@bpdatabase.route('/database/import/image', methods = ["POST"])
-def importimage():
-    output = InsertAnimeImages(3)
+@bpdatabase.route('/database/import/image/<id:num_per_anime>', methods = ["POST"])
+def importimage(num_per_anime):
+    output = InsertAnimeImages(num_per_anime)
     if output[0]:
         return "Done"
     else: return f"Error: {output[1]}"
