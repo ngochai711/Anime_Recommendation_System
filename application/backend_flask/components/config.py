@@ -24,7 +24,7 @@ DB_NAME = environ.get('DBNAME')
 environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # Python log level
-logging.basicConfig(filename='application.log', level=logging.INFO)
+# logging.basicConfig(filename='application.log', level=logging.INFO)
 
 class FlaskConfig:
    SECRET_KEY = environ.get('SECRET_KEY')
