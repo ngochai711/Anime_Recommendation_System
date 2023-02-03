@@ -6,6 +6,7 @@ from .config import FlaskConfig as fcfg
 from components.blueprints.authentication import signup, signin
 from components.blueprints.personal import account
 from components.blueprints.admin import database, server
+from components.blueprints.search import detail, general
 
 
 def create_app():
@@ -28,5 +29,8 @@ def create_app():
     App.register_blueprint(signin.bpsignin, url_prefix='/auth')
     
     App.register_blueprint(account.bpaccount, url_prefix='/personal')
+    
+    App.register_blueprint(detail.bpsearchdetail, url_prefix='/search')
+    App.register_blueprint(general.bpsearchgeneral, url_prefix='/search')
     
     return App

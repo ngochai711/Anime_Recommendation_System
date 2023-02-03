@@ -35,4 +35,35 @@ class AnimeSchema(Schema):
     Genres = auto_field()
     Score = auto_field()
     Episodes = auto_field()
+    Time_created = auto_field()
     rel_ImageAnime = auto_field()
+    ID_AnimeRating = auto_field()
+    
+
+class AnimeRatingSchema(Schema):
+    class Meta:
+        model = dbm.AnimeRating
+        load_instance = True
+        
+    ID = auto_field()
+    Rating = auto_field()
+    
+    
+class AnimeInfoSchema(Schema):
+    class Meta:
+        model = dbm.AnimeInfo
+        load_instance = True
+    
+    ID = auto_field()
+    Name_ENG = auto_field()
+    Name_JPN = auto_field()
+    Synopsis = auto_field()
+    Type = auto_field()
+    Popularity = auto_field()
+    Aired = auto_field()
+    Premiered = auto_field()
+    Producers = auto_field()
+    Licensors = auto_field()
+    Studio = auto_field()
+    Source = auto_field()
+    Duration = auto_field()

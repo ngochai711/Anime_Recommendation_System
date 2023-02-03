@@ -126,6 +126,7 @@ class Anime (Base):
     Genres = Column(ms.NVARCHAR(128))
     Score = Column(ms.FLOAT)
     Episodes = Column(ms.NVARCHAR(10))
+    Time_created = Column(ms.DATETIME, nullable=False, default=datetime.now(timezone.utc))
     
     ID_AnimeInfo = Column(ms.INTEGER, ForeignKey("ANIMEINFO.ID"), nullable=False)
     rel_AnimeInfo = relationship("AnimeInfo", cascade='save-update, merge, delete', back_populates="rel_Anime")
