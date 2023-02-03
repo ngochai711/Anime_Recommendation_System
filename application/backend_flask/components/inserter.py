@@ -5,7 +5,7 @@ from .dbsettings import new_Scoped_session
 import pandas as pd
 import numpy as np
 from .config import STORAGE_PATH, HOME_DIRECTORY
-import requests
+import requests, logging
 from .imagescraper import get_original_images_custom
 from urllib.parse import urlparse
 
@@ -197,7 +197,7 @@ def InsertAnimeImages(amount_per_anime: int):
         shape = anime_table.shape[0]
         for index, row in anime_table.iterrows():
             n = amount_per_anime
-            if index % 5 == 0: print(f"Currently at anime number {index} in total of {shape}")
+            if index % 5 == 0: logging.info(f"Currently at anime number {index} in total of {shape}")
             image_list = get_original_images_custom(row['Name'])
             for key, value in image_list.items():
                 if int(key) <= n: 
@@ -206,7 +206,7 @@ def InsertAnimeImages(amount_per_anime: int):
                     if output[0] == False:
                         n += 1
                         temp_Session.rollback()
-                        print(f"Anime id {row['MAL_ID']} with link '{value}' got invalid response, skipping. Error: {output[1]}")
+                        logging.warning(f"Anime id {row['MAL_ID']} with link '{value}' got invalid response, skipping. Error: {output[1]}")
                     else: temp_Session.commit()
                 else: break
         return [True]

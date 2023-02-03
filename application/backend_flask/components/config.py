@@ -2,7 +2,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from os import environ
 from argon2 import Type as ArgonType
-import platform
+import platform, logging
 
 machineinfo = platform.uname()
 
@@ -22,6 +22,9 @@ DB_NAME = environ.get('DBNAME')
 
 # Tensorflow log level
 environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+# Python log level
+logging.basicConfig(filename='application.log', level=logging.INFO)
 
 class FlaskConfig:
    SECRET_KEY = environ.get('SECRET_KEY')
