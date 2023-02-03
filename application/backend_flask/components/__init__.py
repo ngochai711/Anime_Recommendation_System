@@ -9,7 +9,7 @@ from components.blueprints.admin import database
 
 def create_app():
     App = Flask(__name__)
-    cors = CORS(App)
+    CORS(App)
     App.config.from_object(fcfg)
     jwt = JWTManager(App)
 
