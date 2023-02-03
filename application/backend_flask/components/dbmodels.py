@@ -59,7 +59,8 @@ class ImageProfile (Base):
 
 @event.listens_for(ImageProfile, 'after_delete')
 def receive_after_delete(mapper, connection, target):
-    os.remove(os.path.join(STORAGE_PATH, 'profile/', target.Filename))
+    if os.path.exists(os.path.join(STORAGE_PATH, 'profile/', target.Filename)):
+        os.remove(os.path.join(STORAGE_PATH, 'profile/', target.Filename))
 
 
 # ==============================================================================
@@ -88,6 +89,9 @@ class Rating (Base):
     ID_Account = Column(ms.INTEGER, ForeignKey("ACCOUNT.ID"), nullable=False)
     rel_Account = relationship("Account", back_populates="rel_Rating")
     
+    ID_Anime = Column(ms.INTEGER, ForeignKey("ANIME.ID"), nullable=False)
+    rel_Anime = relationship("Anime", back_populates="rel_Rating")
+    
     
 # ==============================================================================
 class Like (Base):
@@ -97,6 +101,9 @@ class Like (Base):
     
     ID_Account = Column(ms.INTEGER, ForeignKey("ACCOUNT.ID"), nullable=False)
     rel_Account = relationship("Account", back_populates="rel_Like")
+    
+    ID_Anime = Column(ms.INTEGER, ForeignKey("ANIME.ID"), nullable=False)
+    rel_Anime = relationship("Anime", back_populates="rel_Like")
         
     
 # ==============================================================================
@@ -107,6 +114,9 @@ class View (Base):
     
     ID_Account = Column(ms.INTEGER, ForeignKey("ACCOUNT.ID"), nullable=False)
     rel_Account = relationship("Account", back_populates="rel_View")
+    
+    ID_Anime = Column(ms.INTEGER, ForeignKey("ANIME.ID"), nullable=False)
+    rel_Anime = relationship("Anime", back_populates="rel_View")
         
     
 # ==============================================================================
@@ -125,7 +135,7 @@ class Anime (Base):
     Name = Column(ms.NVARCHAR(128), nullable=False)
     Genres = Column(ms.NVARCHAR(128))
     Score = Column(ms.FLOAT)
-    Episodes = Column(ms.NVARCHAR(10))
+    Episodes = Column(ms.SMALLINT)
     Time_created = Column(ms.DATETIME, nullable=False, default=datetime.now(timezone.utc))
     
     ID_AnimeInfo = Column(ms.INTEGER, ForeignKey("ANIMEINFO.ID"), nullable=False)
@@ -136,6 +146,15 @@ class Anime (Base):
     
     # ImageAnime references
     rel_ImageAnime = relationship("ImageAnime", cascade='save-update, merge, delete', back_populates="rel_Anime")
+    
+    # Rating references
+    rel_Rating = relationship("Rating", cascade='save-update, merge, delete', back_populates="rel_Anime")
+    
+    # View references
+    rel_View = relationship("View", cascade='save-update, merge, delete', back_populates="rel_Anime")
+    
+    # Like references
+    rel_Like = relationship("Like", cascade='save-update, merge, delete', back_populates="rel_Anime")
     
     
 # ==============================================================================

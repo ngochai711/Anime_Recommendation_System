@@ -13,3 +13,4 @@ pandas
 lxml
 bs4
 Flask-Cors
+tensorflow

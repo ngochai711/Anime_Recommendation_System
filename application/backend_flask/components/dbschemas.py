@@ -68,3 +68,12 @@ class AnimeInfoSchema(Schema):
     Studio = auto_field()
     Source = auto_field()
     Duration = auto_field()
+    
+    
+class RatingSchema(Schema):
+    class Meta:
+        model = dbm.Rating
+        load_instance = True
+        
+    ID = auto_field()
+    Point = auto_field()

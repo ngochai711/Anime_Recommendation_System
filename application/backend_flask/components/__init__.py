@@ -1,8 +1,9 @@
-import logging
+import json
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, get_jwt, get_jwt_identity, create_access_token
 from .config import FlaskConfig as fcfg
+import components.model_variables as modelvar
 from components.blueprints.authentication import signup, signin
 from components.blueprints.personal import account
 from components.blueprints.admin import database, server
@@ -18,6 +19,9 @@ def create_app():
     @App.route("/")
     def hello():
         return "<h1>Anime Recommendation System</h1>"
+    
+    # print(type(modelvar.loaded_model))
+    # print(type(modelvar.user2user_encoded))
 
     # App.register_blueprint(image.bpimage, url_prefix='/image')
     # App.register_blueprint(gets.bpget, url_prefix='/gets')
