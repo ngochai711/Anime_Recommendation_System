@@ -38,12 +38,12 @@ def getallrating():
       if ratings is None: 
          return result_output("Completed", "", "No rating yet")
       else: 
-         json_ratings = {}
-         for index, row in enumerate(ratings):
+         json_ratings = []
+         for row in ratings:
             temp = {}
             temp['rating'] = schema_rating.dump(row)
             temp['anime'] = schema_anime.dump(row.rel_Anime)
-            json_ratings[index] = temp
+            json_ratings.append(temp)
          return result_output("Completed", "", json_ratings)
       
    except Exception as e:
