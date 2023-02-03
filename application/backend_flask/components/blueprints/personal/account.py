@@ -1,8 +1,11 @@
 from datetime import datetime
-from flask import Flask, Blueprint, request, jsonify
+import sqlalchemy.orm as sqlorm
+from flask import Flask, Blueprint, request, jsonify, send_file
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from components.dbsettings import new_Scoped_session
 from components import dbmodels as dbm, dbschemas as dbs
+from components.inserter import SaveProfileImage
+from components.config import STORAGE_PATH
 
 bpaccount = Blueprint('bpaccount', __name__)
 
@@ -71,3 +74,57 @@ def changeinfo():
       return account_output("Incompleted", str(e), "")
    
 
+@bpaccount.route('/avatar/set', methods = ['POST'])
+@jwt_required()
+def setavatar():
+   if 'file' not in request.files:
+      return jsonify({"msg": "Completed", "error": "No file path", "info": ""})
+   current_user = get_jwt_identity()
+   if current_user is None:
+      return jsonify({"msg": "Incompleted", "error": "Invalid token", "info": ""})
+   
+   f = request.files['file']
+   Session = new_Scoped_session()
+   try:
+      acc = Session.query(dbm.Account).options(sqlorm.joinedload(dbm.Account.rel_AccountInfo)).get(current_user['ID'])
+      if acc == None:
+         Session.close()
+         return jsonify({"msg": "Incompleted", "error": "Account not found", "info": ""})
+      output = SaveProfileImage(Session, f)
+      if output[0]: 
+         acc.rel_AccountInfo.ID_ImageProfile = output[1].ID
+         Session.commit()
+         return jsonify({'msg': 'Completed', "error": "", "info": output[1].ID})
+      else: 
+         Session.rollback()
+         return jsonify({'msg': 'Incompleted', "error": output[1], "info": ""})
+   except Exception as e:
+      Session.rollback()
+      return jsonify({'msg': 'Incompleted', 'error': str(e)})
+   
+   
+@bpaccount.route('/avatar/get', methods = ['GET'])
+@jwt_required()
+def getavatar():
+   current_user = get_jwt_identity()
+   if current_user is None:
+      return jsonify({"msg": "Incompleted", "error": "Invalid token", "info": ""})
+
+   Session = new_Scoped_session()
+   try:
+      acc = Session.query(dbm.Account).options(sqlorm.joinedload(dbm.Account.rel_AccountInfo)).get(current_user['ID'])
+      if acc == None:
+         Session.close()
+         return jsonify({"msg": "Incompleted", "error": "Account not found", "info": ""})
+   
+      if acc.rel_AccountInfo.ID_ImageProfile is None:
+         return jsonify({"msg": "Incompleted", "error": "No avatar", "info": ""})
+      
+      image = Session.query(dbm.ImageProfile).get(acc.rel_AccountInfo.ID_ImageProfile)
+      Session.close()
+      ext = image.Filename.split('.')[-1]
+      return send_file(STORAGE_PATH + "profile/" + image.Filename, mimetype = 'image/' + ext)
+   
+   except Exception as e:
+      Session.rollback()
+      return jsonify({'msg': 'Incompleted', 'error': str(e)})

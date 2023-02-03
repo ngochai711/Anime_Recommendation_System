@@ -37,3 +37,20 @@ def searchdetail(id):
    except Exception as e:
       Session.rollback()
       return request_output("Incompleted", str(e), "")
+   
+   
+# @bpsearchdetail.route("/detail/anime/<int:id>/similars", methods = ['GET'])
+# def searchsimilars(id):
+#    Session = new_Scoped_session()
+#    schema_anime = dbs.AnimeSchema()
+#    try:
+#       anime = Session.query(dbm.Anime).get(id)
+#       if anime is None:
+#          return request_output("Incompleted", "Anime not found", "")
+      
+      
+#       Session.commit()
+#       return request_output("Completed", "", "")
+#    except Exception as e:
+#       Session.rollback()
+#       return request_output("Incompleted", str(e), "")

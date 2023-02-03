@@ -23,6 +23,7 @@ class AccountInfoSchema(Schema):
     Name = auto_field()
     Birthdate = auto_field()
     Gender = auto_field()
+    ID_ImageProfile = auto_field()
     
     
 class AnimeSchema(Schema):

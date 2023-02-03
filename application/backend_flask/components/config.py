@@ -11,6 +11,8 @@ if machineinfo[1] == "knguyen02311-LENOVO" \
 else '/var/lib/jenkins/workspace/anime-recommendation-development/application/backend_flask/'
    
 STORAGE_PATH = HOME_DIRECTORY + '../storage/'
+MODEL_PATH = HOME_DIRECTORY + '../../models/'
+DATASET_PATH = HOME_DIRECTORY + '../../dataset/'
 
 load_dotenv(dotenv_path=HOME_DIRECTORY + '.env')
 
