@@ -1,4 +1,5 @@
 @import url('https://css.gg/search.css');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 /* navigation bar */
 .nav-bar {
@@ -113,6 +114,12 @@
   border: solid #FFFFFF;
   border-width: 3px;
   border-radius: 50%;
+}
+
+.login-icon {
+  width: 35px;
+  height: 35px;
+  color: #FFFFFF;
 }
 
 .user-name {

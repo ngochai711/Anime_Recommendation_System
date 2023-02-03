@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 import User from "./User";
 import '../styles/header.css';
 
-export default function Header() {
+export default function Header({ userToken }) {
     return (
         <div className="header">
             <nav className="nav-bar">
@@ -20,7 +20,7 @@ export default function Header() {
                     </li>
                 </ul>
                 <SearchBar />
-                <User />
+                <User userToken={userToken} />
             </nav>
         </div>
     );
