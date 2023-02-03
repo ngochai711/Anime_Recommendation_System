@@ -29,7 +29,7 @@ def getallrating():
    Session = new_Scoped_session()
    try:
       acc = Session.query(dbm.Account).get(current_user['ID'])
-      if acc == None:
+      if acc is None:
          Session.close()
          return result_output("Incompleted", "Account not found", "")
       
@@ -40,8 +40,10 @@ def getallrating():
       else: 
          json_ratings = {}
          for index, row in enumerate(ratings):
-            json_ratings[index]['rating'] = schema_rating.dump(row)
-            json_ratings[index]['anime'] = schema_anime.dump(row.rel_Anime)
+            temp = {}
+            temp['rating'] = schema_rating.dump(row)
+            temp['anime'] = schema_anime.dump(row.rel_Anime)
+            json_ratings[index] = temp
          return result_output("Completed", "", json_ratings)
       
    except Exception as e:
@@ -51,7 +53,7 @@ def getallrating():
 
 @bpinteraction.route("/rating/get/<int:id>", methods = ['GET'])
 @jwt_required()
-def getrating():
+def getrating(id):
    current_user = get_jwt_identity()
    if current_user is None:
       return result_output("Incompleted", "Invalid token", "")
@@ -78,7 +80,7 @@ def getrating():
    
 @bpinteraction.route("/rating/set/<int:id>", methods = ['POST'])
 @jwt_required()
-def setrating():
+def setrating(id):
    point = request.args.get('point', default = 5, type = int)
    current_user = get_jwt_identity()
    if current_user is None:

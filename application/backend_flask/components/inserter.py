@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 from .config import STORAGE_PATH, HOME_DIRECTORY
 import requests
-from components.imagescraping import get_original_images_custom
+from .imagescraper import get_original_images_custom
 from urllib.parse import urlparse
 
 
@@ -61,7 +61,12 @@ def SaveImageFromURL(Session, url, image_type, anime_id):
     if r.status_code==200:
         urlname = urlparse(url)
         filename = os.path.basename(urlname.path)
+        if filename == "":
+            return [False, "No file selected"]
         ext = filename.split('.')[-1]
+        if ext not in ['jpg', 'jpeg', 'png']:
+            return [False, "File extension not supported"]
+        
         if image_type == 1: image = ImageAnime(Filename="temp", ID_Anime=anime_id)
         elif image_type == 2: image = ImageProfile(Filename="temp")
         Session.add(image)
@@ -194,7 +199,7 @@ def InsertAnimeImages(Session):
                 if key <= 3: 
                     output = SaveImageFromURL(Session, str(value), 1, row['MAL_ID'])
                     if output[0] == False:
-                        print(f"Anime id {row['MAL_ID']} with link '{value}' got invalid response, skipping")
+                        print(f"Anime id {row['MAL_ID']} with link '{value}' got invalid response, skipping: {output[1]}")
                 else: break
         Session.commit()
         return [True]

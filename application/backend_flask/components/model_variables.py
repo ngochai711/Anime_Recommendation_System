@@ -1,6 +1,6 @@
 from keras.models import load_model, model_from_json
-import json, os, numpy
-from components.config import MODEL_PATH
+import json, os, numpy, pandas
+from components.config import MODEL_PATH, DATASET_PATH
 
 def extract_weights(name, model):
     weight_layer = model.get_layer(name)
@@ -24,3 +24,5 @@ anime_encoded2anime = json.loads(open_file("anime_encoded2anime.json"))
 anime2anime_encoded = json.loads(open_file("anime2anime_encoded.json"))
 user_encoded2user = json.loads(open_file("user_encoded2user.json"))
 user2user_encoded = json.loads(open_file("user2user_encoded.json"))
+
+df_anime = pandas.read_csv(os.path.join(DATASET_PATH, "anime.csv"))

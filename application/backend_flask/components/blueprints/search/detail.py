@@ -43,6 +43,7 @@ def searchdetail(id):
    
 @bpsearchdetail.route("/detail/anime/<int:id>/similars", methods = ['GET'])
 def searchsimilars(id):
+   amount = request.args.get('amount', default = 10, type = int)
    Session = new_Scoped_session()
    schema_anime = dbs.AnimeSchema()
    try:
@@ -50,13 +51,12 @@ def searchsimilars(id):
       if anime is None:
          return request_output("Incompleted", "Anime not found", "")
       
-      output = find_similar_animes(id, 10)
+      output = find_similar_animes(id, amount)
       if output[0]:
          for i, item in enumerate(output[1]):
             temp = Session.query(dbm.Anime).get(item["id"])
             item['anime'] = schema_anime.dump(temp)
          Session.commit()
-         print(type(output[1]))
          return request_output("Completed", "", output[1])
       else: 
          Session.commit()

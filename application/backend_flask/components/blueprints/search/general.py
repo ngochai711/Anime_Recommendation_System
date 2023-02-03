@@ -38,10 +38,10 @@ def searchall():
          ).order_by(query_orderby
          ).limit(numperpage).offset((page - 1) * numperpage)
       Session.commit()
-      json_animes = {}
-      for i, row in enumerate(animes):
-         json_animes[i] = schema.dump(row)
-      return request_output("Completed", "", json_animes)
+      list_animes = []
+      for row in animes:
+         list_animes.append(schema.dump(row))
+      return request_output("Completed", "", list_animes)
    except Exception as e:
       Session.rollback()
       return request_output("Incompleted", str(e), "")

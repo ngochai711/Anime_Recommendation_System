@@ -5,9 +5,10 @@ from flask_jwt_extended import JWTManager, get_jwt, get_jwt_identity, create_acc
 from .config import FlaskConfig as fcfg
 import components.model_variables as modelvar
 from components.blueprints.authentication import signup, signin
-from components.blueprints.personal import account
+from components.blueprints.personal import account, interaction
 from components.blueprints.admin import database, server
 from components.blueprints.search import detail, general
+from components.blueprints.utils import anime
 
 
 def create_app():
@@ -33,8 +34,11 @@ def create_app():
     App.register_blueprint(signin.bpsignin, url_prefix='/auth')
     
     App.register_blueprint(account.bpaccount, url_prefix='/personal')
+    App.register_blueprint(interaction.bpinteraction, url_prefix='/personal')
     
     App.register_blueprint(detail.bpsearchdetail, url_prefix='/search')
     App.register_blueprint(general.bpsearchgeneral, url_prefix='/search')
+    
+    App.register_blueprint(anime.bpanimeutils, url_prefix='/utils')
     
     return App

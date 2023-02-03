@@ -20,6 +20,9 @@ DB_USERNAME = environ.get('DBUSERNAME')
 DB_PASSWORD = environ.get('DBPASSWORD')
 DB_NAME = environ.get('DBNAME')
 
+# Tensorflow log level
+environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 class FlaskConfig:
    SECRET_KEY = environ.get('SECRET_KEY')
    JWT_SECRET_KEY = environ.get('JWT_SECRET_KEY')

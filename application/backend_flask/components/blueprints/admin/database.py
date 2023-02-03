@@ -4,7 +4,7 @@ from ...dbmodels import *
 from ...dbsettings import new_Scoped_session, Base, Engine
 from ...inserter import InsertAnimes, InsertAnimeImages, TruncateTables
 from ...config import DB_NAME, STORAGE_PATH
-from components.imagescraping import get_original_images_custom
+from components.imagescraper import get_original_images_custom
 
 bpdatabase = Blueprint('bpdatabase', __name__)
 
