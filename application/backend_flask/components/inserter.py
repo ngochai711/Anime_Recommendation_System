@@ -56,26 +56,29 @@ def GetImageFolder(image_type):
 
 
 def SaveImageFromURL(Session, url, image_type, anime_id):
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36"}
-    r = requests.get(url, headers=headers)
-    if r.status_code==200:
-        urlname = urlparse(url)
-        filename = os.path.basename(urlname.path)
-        if filename == "":
-            return [False, "No file selected"]
-        ext = filename.split('.')[-1]
-        if ext not in ['jpg', 'jpeg', 'png']:
-            return [False, "File extension not supported"]
-        
-        if image_type == 1: image = ImageAnime(Filename="temp", ID_Anime=anime_id)
-        elif image_type == 2: image = ImageProfile(Filename="temp")
-        Session.add(image)
-        Session.flush()
-        image.Filename = str(image.ID) + '.' + ext
-        open(STORAGE_PATH + GetImageFolder(image_type) + image.Filename, "wb").write(r.content)
-        Session.flush()
-        return [True, image.ID]
-    return [False, "Invalid response"]
+    try:
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36"}
+        r = requests.get(url, headers=headers)
+        if r.status_code==200:
+            urlname = urlparse(url)
+            filename = os.path.basename(urlname.path)
+            if filename == "":
+                return [False, "No file selected"]
+            ext = filename.split('.')[-1]
+            if ext not in ['jpg', 'jpeg', 'png']:
+                return [False, "File extension not supported"]
+            
+            if image_type == 1: image = ImageAnime(Filename="temp", ID_Anime=anime_id)
+            elif image_type == 2: image = ImageProfile(Filename="temp")
+            Session.add(image)
+            Session.flush()
+            image.Filename = str(image.ID) + '.' + ext
+            open(STORAGE_PATH + GetImageFolder(image_type) + image.Filename, "wb").write(r.content)
+            Session.flush()
+            return [True, image.ID]
+        return [False, "Invalid response"]
+    except Exception as e:
+        return [False, str(e)]
 
 
 def SaveProfileImage(Session, file):
@@ -185,23 +188,27 @@ def InsertAnimes(Session):
         return [False, str(e)]
     
 
-def InsertAnimeImages(Session):
-    Session = new_Scoped_session()
+def InsertAnimeImages(amount_per_anime: int):
     try:
         # old = Session.query(ImageAnime).all()
         # Session.remove(old)
         # Session.flush()
         anime_table = pd.read_csv(HOME_DIRECTORY + "../../dataset/db_anime.csv")
+        shape = anime_table.shape[0]
         for index, row in anime_table.iterrows():
-            if index % 5 == 0: print(f"Currently at anime id {row['MAL_ID']}")
+            n = amount_per_anime
+            if index % 5 == 0: print(f"Currently at anime number {index} in total of {shape}")
             image_list = get_original_images_custom(row['Name'])
             for key, value in image_list.items():
-                if key <= 3: 
-                    output = SaveImageFromURL(Session, str(value), 1, row['MAL_ID'])
+                if int(key) <= n: 
+                    temp_Session = new_Scoped_session()
+                    output = SaveImageFromURL(temp_Session, str(value), 1, row['MAL_ID'])
                     if output[0] == False:
-                        print(f"Anime id {row['MAL_ID']} with link '{value}' got invalid response, skipping: {output[1]}")
+                        n += 1
+                        temp_Session.rollback()
+                        print(f"Anime id {row['MAL_ID']} with link '{value}' got invalid response, skipping. Error: {output[1]}")
+                    else: temp_Session.commit()
                 else: break
-        Session.commit()
         return [True]
     except Exception as e:
         return [False, str(e)]

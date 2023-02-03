@@ -54,8 +54,7 @@ def importanime():
 
 @bpdatabase.route('/database/import/image', methods = ["POST"])
 def importimage():
-    Session = new_Scoped_session()
-    output = InsertAnimeImages(Session)
+    output = InsertAnimeImages(3)
     if output[0]:
         return "Done"
     else: return f"Error: {output[1]}"
