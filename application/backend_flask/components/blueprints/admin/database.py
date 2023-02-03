@@ -5,10 +5,9 @@ from ...dbsettings import new_Scoped_session, Base, Engine
 from ...inserter import InsertAnimes, InsertAnimeImages, TruncateTables
 from ...config import DB_NAME, STORAGE_PATH
 from components.imagescraping import get_original_images_custom
-from flask_cors import CORS
 
 bpdatabase = Blueprint('bpdatabase', __name__)
-CORS(bpdatabase)
+
 
 @bpdatabase.route('database/clear/imageanime', methods = ["DELETE"])
 def clearimages():

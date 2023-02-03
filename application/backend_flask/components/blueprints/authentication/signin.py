@@ -4,10 +4,9 @@ from components.dbsettings import new_Scoped_session
 from components.inserter import SetupAccount
 from components import dbmodels as dbm, dbschemas as dbs
 from components.security import make_hash, check_hash
-from flask_cors import CORS
 
 bpsignin = Blueprint('bpsignin', __name__)
-CORS(bpsignin)
+
 
 def signin_output(message, error, access_token):
    return jsonify({

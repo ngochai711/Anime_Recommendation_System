@@ -9,19 +9,10 @@ from components.blueprints.admin import database, server
 
 
 def create_app():
-    logging.getLogger('flask_cors').level = logging.DEBUG
-    
     App = Flask(__name__)
     CORS(App)
     App.config.from_object(fcfg)
     jwt = JWTManager(App)
-    
-    # @App.after_request
-    # def after_request(response):
-    #     response.headers.add("Access-Control-Allow-Origin", "*")
-    #     response.headers.add("Access-Control-Allow-Headers", "*")
-    #     response.headers.add("Access-Control-Allow-Methods", "*")
-    #     return response
 
     @App.route("/")
     def hello():
