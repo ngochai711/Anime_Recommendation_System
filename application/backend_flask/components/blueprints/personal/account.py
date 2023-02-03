@@ -3,9 +3,10 @@ from flask import Flask, Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from components.dbsettings import new_Scoped_session
 from components import dbmodels as dbm, dbschemas as dbs
+from flask_cors import CORS
 
 bpaccount = Blueprint('bpaccount', __name__)
-
+CORS(bpaccount)
 
 def account_output(message, error, info):
    return jsonify({

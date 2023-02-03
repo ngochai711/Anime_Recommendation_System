@@ -4,10 +4,11 @@ import sqlalchemy.orm as sqlorm
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from components.dbsettings import new_Scoped_session
 from components import dbmodels as dbm, dbschemas as dbs
+from flask_cors import CORS
 
 
 bpsearchdetail = Blueprint("bpsearchdetail", __name__)
-
+CORS(bpsearchdetail)
 
 def signin_output(message, error, access_token):
    return jsonify({

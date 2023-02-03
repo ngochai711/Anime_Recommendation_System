@@ -1,12 +1,13 @@
 from flask import Flask, Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token
+from flask_cors import CORS
 from components.dbsettings import new_Scoped_session
 from components import dbmodels as dbm, dbschemas as dbs
 from components.security import make_hash
 from components.inserter import SaveImageFromURL, SetupAccount
 
 bpsignup = Blueprint('bpsignup', __name__)
-
+CORS(bpsignup)
 
 def signup_output(message, error, access_token):
    return jsonify({

@@ -3,9 +3,11 @@ from flask import Flask, Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from components.dbsettings import new_Scoped_session
 from components import dbmodels as dbm, dbschemas as dbs
+from flask_cors import CORS
 
 
 bpsearchgeneral = Blueprint("bpsearchgeneral", __name__)
+CORS(bpsearchgeneral)
 
 @bpsearchgeneral.route("/search/all", methods = ["POST"])
 def searchall():
