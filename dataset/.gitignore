@@ -1,2 +1,6 @@
-*.csv
+anime.csv
+animelist.csv
+anime_with_synopsis.csv
+watching_status.csv
+rating_complete.csv
 html\ folder/

@@ -8,25 +8,32 @@ from components import dbmodels as dbm, dbschemas as dbs
 
 bpsearchdetail = Blueprint("bpsearchdetail", __name__)
 
-
-def signin_output(message, error, access_token):
+def request_output(message, error, info):
    return jsonify({
       "msg": message, 
       "error": error, 
-      "token": access_token
+      "info": info
    })
    
 
-@bpsearchdetail.route("/search/detail/anime/<int:id>", methods = ["GET"])
+@bpsearchdetail.route("/detail/anime/<int:id>", methods = ["GET"])
 def searchdetail(id):
    Session = new_Scoped_session()
+   schema_anime = dbs.AnimeSchema()
+   schema_animeinfo = dbs.AnimeInfoSchema()
    try:
       anime = Session.query(dbm.Anime).options(
          sqlorm.joinedload(dbm.Anime.rel_AnimeInfo), 
          sqlorm.joinedload(dbm.Anime.rel_ImageAnime), 
          sqlorm.joinedload(dbm.Anime.rel_AnimeRating)
       ).get(id)
+      Session.commit()
       if anime is None:
-         return jsonify({"msg": "Incompleted"})
+         return request_output("Incompleted", "Anime not found", "")
+      json_anime = {}
+      json_anime['anime'] = schema_anime.dump(anime)
+      json_anime['animeinfo'] = schema_animeinfo.dump(anime.rel_AnimeInfo)
+      return request_output("Completed", "", json_anime)
    except Exception as e:
-      pass
+      Session.rollback()
+      return request_output("Incompleted", str(e), "")
