@@ -1,17 +1,45 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import '../styles/auth.css'
 
-export default function Register() {
+export default function Register({ onLoggedIn }) {
     const [email, setEmail] = useState(null);
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
 
     const alert = useAlert();
+    const navigate = useNavigate();
 
-    const onRegister = async () => {
+    const handleLogin = async (email, password) => {
+        await fetch(
+            "https://abcdavid-knguyen.ddns.net:30002/auth/signin", {
+                mode: "cors",
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username_or_email: email,
+                    password: password
+                }) 
+            }
+        )
+        .then(response => response.json()
+        .then(response => {
+            if (response['msg'] === "Completed")
+            {
+                onLoggedIn(response['token']);
+                navigate('/');
+            }
+        }))
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    const handleRegister = async () => {
         if (password === null || password !== confirmPassword) 
         {
             console.log("onRegister");
@@ -27,19 +55,18 @@ export default function Register() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body:
-                        JSON.stringify({ 
+                    body: JSON.stringify({ 
                             email: email,
-                            name: "user",
+                            name: "unnamed",
                             username: username,
                             password: password,
                         })
                     }
             )
             .then(response => response.json())
-            .then(response =>
-                console.log(response)
-            )
+            .then(response => {
+                if (response['msg'] === "Completed") handleLogin(email, password)
+            })
             .catch(error => {
                 console.log(error);
             });
@@ -59,7 +86,7 @@ export default function Register() {
                     <input className="auth-input" type="password" onChange={e => setPassword(e.target.value)}></input>
                     <label className="auth-label">Confirm Password</label>
                     <input className="auth-input" type="password" onChange={e => setConfirmPassword(e.target.value)}></input>
-                    <button className={"btn-3 auth-btn"} style={{ marginTop: "2rem" }} onClick={onRegister}>Verify</button>
+                    <button className={"btn-3 auth-btn"} style={{ marginTop: "2rem" }} onClick={handleRegister}>Verify</button>
                     <Link to="/login" className={"btn-2 auth-btn"}>Login</Link>
                 </div>
             </div>
