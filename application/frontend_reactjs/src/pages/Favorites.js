@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Anime from "../components/Anime";
 import Pagination from "../components/Pagination";
 import '../styles/favorites.css'
@@ -50,6 +52,16 @@ process.env.PUBLIC_URL + '/DemonSlayer_Pos.jpg',
 ];
 
 export default function Favorites() {
+    const [favAnimes, setFavAnimes] = useState([])
+
+    const navigate = useNavigate()
+
+    let { token } = useParams()
+
+    useEffect(() => {
+        if ( token === undefined ) navigate(`/login`) 
+    }, [token, navigate])
+
     return (
         <div className="page" style={{ paddingTop: "3rem" }}>
             <div className="page-section">
@@ -62,7 +74,7 @@ export default function Favorites() {
                         marginLeft: "10rem",
                     }}>
                     <h1 className="title-2" style={{ fontSize: "2em" }}>FAVORITES</h1>
-                    <Pagination itemsPerPage={21} items={paginatedItems} />
+                    <Pagination itemsPerPage={21} items={favAnimes} />
                 </div>
             </div>
             <div className="page-section" style={{ paddingTop: "10rem", paddingBottom: "6rem" }}>

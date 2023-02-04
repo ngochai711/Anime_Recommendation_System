@@ -8,7 +8,7 @@ function Items({ currentItems }) {
         <div className="paginated-container">
             {currentItems &&
                 currentItems.map((item) => (
-                    <Anime poster={item} title="Sword Art Online"  margin={0.35} />
+                    <Anime id={item['ID']} poster={item} title={item['Name']}  margin={0.35} />
                 ))}
         </div>
     );
@@ -16,6 +16,9 @@ function Items({ currentItems }) {
 
 export default function Pagination({ itemsPerPage, items }) {
     const [itemOffset, setItemOffset] = useState(0);
+
+    console.log(items);
+    if (items === null) return;
 
     const endOffset = itemOffset + itemsPerPage;
     const currentItems = items.slice(itemOffset, endOffset);
