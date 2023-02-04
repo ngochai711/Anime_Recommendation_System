@@ -54,7 +54,7 @@ def searchsimilars(id):
       output = find_similar_animes(id, amount)
       if output[0]:
          for i, item in enumerate(output[1]):
-            temp = Session.query(dbm.Anime).get(item["id"])
+            temp = Session.query(dbm.Anime).options(sqlorm.joinedload(dbm.Anime.rel_ImageAnime)).get(item["id"])
             item['anime'] = schema_anime.dump(temp)
          Session.commit()
          return request_output("Completed", "", output[1])

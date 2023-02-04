@@ -2,6 +2,7 @@ from datetime import datetime
 from flask import Flask, Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import func
+import sqlalchemy.orm as sqlorm
 from components.dbsettings import new_Scoped_session
 from components import dbmodels as dbm, dbschemas as dbs
 
@@ -34,6 +35,7 @@ def searchall():
       query_orderby = query_orderby.asc() if order == "asc" else query_orderby.desc()
       
       animes = Session.query(dbm.Anime
+         ).options(sqlorm.joinedload(dbm.Anime.rel_ImageAnime)
          ).filter(func.lower(dbm.Anime.Name).contains(func.lower(searchstr))
          ).order_by(query_orderby
          ).limit(numperpage).offset((page - 1) * numperpage)
