@@ -198,7 +198,7 @@ def InsertAnimeImages(amount_per_anime, start_position):
         shape = anime_table.shape[0]
         for index, row in anime_table.iterrows():
             n = amount_per_anime
-            if index % 5 == 0: logging.info(f"Currently at anime number {index} in total of {shape}")
+            if index % 5 == 0: logging.debug(f"Currently at anime number {index} in total of {shape}")
             image_list = get_original_images_custom(row['Name'])
             for key, value in image_list.items():
                 if int(key) <= n: 
