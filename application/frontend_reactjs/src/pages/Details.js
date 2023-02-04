@@ -1,9 +1,189 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Anime from '../components/Anime';
 import Genre from '../components/Genre';
 import Rating from '../components/Rating';
 import '../styles/anime.css';
 
-export default function Details() {
+export default function Details({ token }) {
+    const [anime, setAnime] = useState(null)
+    const [animePoster, setAnimePoster] = useState(null)
+    const [animeGenres, setAnimeGenres] = useState(null)
+    const [animeLisenses, setAnimeLisenses] = useState(null)
+    const [animeProducers, setAnimeProducers] = useState(null)
+    const [animeInfo, setAnimeInfo] = useState(null)
+    const [animeAiredFrom, setAnimeAiredFrom] = useState(null)
+    const [animeAiredTo, setAnimeAiredTo] = useState(null)
+    const [similarAnimes, setSimilarAnimes] = useState(null)
+    const [userRating, setUserRating] = useState(null)
+    const [isFavorite, setIsFavorite] = useState(false)
+
+    let { id } = useParams();
+
+    const handleFavorite = async () => {
+        setIsFavorite(!isFavorite)
+
+        if (isFavorite) {
+            let initRate = 8.0
+            await fetch(
+                `https://abcdavid-knguyen.ddns.net:30002'/personal/rating/set/${id}/point=${initRate}`, {
+                    mode: "cors",
+                    method: "POST",
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                })
+                .then(response => response.json()
+                .then(response => {
+                    console.log(response)
+                    if (response['msg'] === "Completed")
+                        setUserRating(initRate)
+                }))
+                .catch(error => error.json()
+                .catch(error => {
+                    console.log(error)
+                }))
+        }
+
+        if (!isFavorite) {
+            let rate = 0.0
+            await fetch(
+                `https://abcdavid-knguyen.ddns.net:30002'/personal/rating/set/${id}/point=${rate}`, {
+                    mode: "cors",
+                    method: "POST",
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                })
+                .then(response => response.json()
+                .then(response => {
+                    console.log(response)
+                }))
+                .catch(error => error.json()
+                .catch(error => {
+                    console.log(error)
+                }))
+        }
+    }
+    
+    const updateRate = async () => {
+
+    }
+    useEffect(() => {
+        async function getDetail() {
+            await fetch(
+                `https://abcdavid-knguyen.ddns.net:30002/search/detail/anime/${id}`, {
+                    mode: "cors",
+                    method: "GET"
+                })
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response)
+                    if (response["msg"] === "Completed") {   
+                        setAnime(response['info']['anime'])
+                        setAnimeInfo(response['info']['animeinfo'])
+
+                        let genres = response['info']['anime']['Genres'].split(', ')
+                        let genreRows = []
+                        for (let i = 0; i < genres.length; i++)
+                            genreRows.push(<Genre value={genres[i]} />)
+                        setAnimeGenres(genreRows)
+
+                        let licenses = response['info']['animeinfo']['Licensors'].split(', ')
+                        let licenseRows = []
+                        for (let i = 0; i < licenses.length; i++)
+                            licenseRows.push(<p>{licenses[i]}</p>)
+                        setAnimeLisenses(licenseRows)
+
+                        let producers = response['info']['animeinfo']['Producers'].split(', ')
+                        let producersRows = []
+                        for (let i = 0; i < producers.length; i++)
+                            producersRows.push(<p>{producers[i]}</p>)
+                        setAnimeProducers(producersRows)
+
+                        let airedDate = response['info']['animeinfo']['Aired'].split(' to ')
+                        setAnimeAiredFrom(airedDate[0])
+                        setAnimeAiredTo(airedDate[1])
+                    }
+                })
+                .catch(error => error.json()
+                .catch(error => {
+                    console.log(error)
+                }))
+        }
+
+        async function getPoster() {
+            await fetch(
+                `https://abcdavid-knguyen.ddns.net:30002/utils/imageanime/${id}`, {
+                    mode: "cors",
+                    method: "GET"
+                })
+                .then(response => response.json()
+                .then(response => {
+                    console.log(response)
+                    if (response["msg"] === "Completed") {   
+                    }
+                }))
+                .catch(error => error.json()
+                .catch(error => {
+                    console.log(error)
+                }))
+        }
+
+        async function getSimilarAnimes() {
+            await fetch(
+                `https://abcdavid-knguyen.ddns.net:30002/search/detail/anime/${id}/similars`, {
+                    mode: "cors",
+                    method: "GET"
+                })
+                .then(response => response.json()
+                .then(response => {
+                    console.log(response)
+                    if (response["msg"] === "Completed") {   
+                        let similars = response['info']
+                        let similarAnis = []
+                        for (let i = 0; i < similars.length; i++)
+                            similarAnis.push(<li><Anime id={similars[i]["anime"]["ID"]} title={similars[i]["anime"]["Name"]} /></li>)
+                            setSimilarAnimes(similarAnis)
+                    }
+                }))
+                .catch(error => error.json()
+                .catch(error => {
+                    console.log(error)
+                }))
+        }
+
+        async function getRating() {
+            await fetch(
+                `https://abcdavid-knguyen.ddns.net:30002/personal/rating/get/${id}`, {
+                    mode: "cors",
+                    method: "GET",
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                })
+                .then(response => response.json()
+                .then(response => {
+                    console.log(response)
+                    if (response["msg"] === "Completed") {   
+                        if (response["info"] !== "No rating yet")
+                            setIsFavorite(true)
+                        else
+                            setIsFavorite(false)
+                    }
+                }))
+                .catch(error => error.json()
+                .catch(error => {
+                    console.log(error)
+                }))
+        }
+
+        getDetail()
+        getPoster()
+        getSimilarAnimes()
+        getRating()
+    },[id, token])
+
     return (
         <div className="page" style={{ paddingTop: "3rem" }}>
             <div className="page-section">
@@ -15,39 +195,39 @@ export default function Details() {
                         <div style={{ width: "230px" }}>
                             <h1 className="title-2" style={{ textIndent: "0rem" }}>OVERVIEW</h1>
                             <img src="https://m.media-amazon.com/images/M/MV5BZTI1MjY3N2YtODczMy00MGQwLWI2NWMtODQwZTE3NTY5OTExXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_.jpg" alt="poster"></img>
-                            <button className="btn-2">+ ADD TO LIST</button>
+                            { !isFavorite ? 
+                                <button className="btn-2" onClick={ handleFavorite  } >+ ADD TO LIST</button> :
+                                <div>
+                                    <button className="btn-2" onClick={ handleFavorite } >UN - FAVORITE</button>
+                                    <button className={"btn-2 score-btn"} onClick={ updateRate }>YOUR RATE<input placeholder={userRating}></input></button>
+                                </div>
+                            }
                         </div>
                         <div style={{ width: "800px", padding: "2rem", paddingBottom: "0rem" }}>
                             <div>
-                                <h1 className="title-3">no game no life</h1>
-                                <p className="anime-description">An urban legend states that those exceptionally gifted ptionally gifted at gaming will be sent a special game invitation, and the winners of the challenge will be whisked away to another world. When Sora and Shiro, two hikikomori NEETs who happen to be both siblings and notorious gamers, receive this invitation, they defeat it with ease. And like the legends tell, they're transported to another world where conflicts, peoples' lives and even country borders are decided by competitions and games. Always up for a challenge, the pair quickly take on the obstacles that come their way, whether it be restoring lowly humanity's good name compared with the other races or helping influence who will become the next king.</p>
+                                <h1 className="title-3">{anime !== null ? anime['Name'] : ""}</h1>
+                                <p className="anime-description">{animeInfo !== null ? animeInfo['Synopsis'] : ""}</p>
                             </div>
                             <div style={{ marginTop: "2rem" }}>
                                 <h3 className="sub-title-1">Alternative Titles:</h3>
-                                <p className="anime-alt-titles">No Game, No Life, No Game No Life, NGNL, ノーゲーム・ノーライフ</p>
+                                <p className="anime-alt-titles">{animeInfo !== null ? `${animeInfo["Name_ENG"]}, ${animeInfo["Name_JPN"]}` : ""}</p>
                             </div>
                             <div style={{ marginTop: "2rem" }}>
                                 <h3 className="sub-title-1">Genres:</h3>
                                 <div className="anime-genre">
-                                    <Genre value={"Adventure"} />
-                                    <Genre value={"Ecchi"} />
-                                    <Genre value={"Fantasy"} />
-                                    <Genre value={"Codependency"} />
-                                    <Genre value={"High Stakes Games"} />
-                                    <Genre value={"Isekai"} />
-                                    <Genre value={"NEET"} />
+                                    {animeGenres}
                                 </div>
                             </div>
                             <div style={{ display: "flex", marginTop: "1rem" }}>
                                 <div style={{ width: "200px" }}>
-                                    <Rating score={8.24} />
-                                    <p className="anime-more-info">Episodes: 12</p>
-                                    <p className="anime-more-info">Type: TV Series</p>
+                                    <Rating score={anime === null ? "" : anime['Score']} />
+                                    <p className="anime-more-info">Episodes: {anime === null ? "" : anime['Episodes']}</p>
+                                    <p className="anime-more-info">Type: {animeInfo === null ? "" : animeInfo['Type']}</p>
                                 </div>
                                 <div style={{ width: "200px" }}>
-                                    <p className="anime-more-info">Score: 8.24</p>
-                                    <p className="anime-more-info">Duration: 24 min</p>
-                                    <p className="anime-more-info">Premiered: Summer 2014</p>
+                                    <p className="anime-more-info">Score: {anime === null ? "" : anime['Score']}</p>
+                                    <p className="anime-more-info">Duration: {animeInfo === null ? "" : animeInfo['Duration']}</p>
+                                    <p className="anime-more-info">Premiered: {animeInfo === null ? "" : animeInfo['Premiered']}</p>
                                 </div>
                             </div>
                         </div>
@@ -56,32 +236,20 @@ export default function Details() {
                         <h1 className="title-2" style={{ textIndent: "0rem" }}>PRODUCERS</h1>
                         <div style={{ height: "fit-content", marginTop: "1.5rem" }}>
                             <h3 className="sub-title-1">Studio:</h3>
-                            <p>MADHOUSE</p>
+                            <p>{animeInfo === null ? "" : animeInfo['Studio']}</p>
                         </div>
                         <div>
                             <h3 className="sub-title-1">Licensed by:</h3>
-                            <div>
-                                <p>AUS Hanabee</p>
-                                <p>NA Sentai</p>
-                                <p>Filmworks</p>
-                                <p>SEA Medialink</p>
-                                <p>UK MMV FIlms</p>
-                            </div>
+                            <div>{animeLisenses}</div>
                         </div>
                         <div>
                             <h3 className="sub-title-1">Produced by:</h3>
-                            <div>
-                                <p>Yōhei Hayashi</p>
-                                <p>Shō Tanaka</p>
-                                <p>Mika Shimizu</p>
-                                <p>Satoshi Fukao</p>
-                                <p>Asako Shimizu</p>
-                            </div>
+                            <div>{animeProducers}</div>
                         </div>
                         <div>
                             <h3 className="sub-title-1">Aired date:</h3>
-                            <p>From: Apr 9, 2014</p>
-                            <p>To: Jun 25, 2014</p>
+                            <p>From: {animeAiredFrom === null ? "" : animeAiredFrom}</p>
+                            <p>To: {animeAiredTo === null ? "" : animeAiredTo}</p>
                         </div>
                     </div>
                 </div>
@@ -90,41 +258,7 @@ export default function Details() {
                 <div className="content-container-2" style={{ width: "850px", marginLeft: "13rem" }}>
                     <h1 className="title-2">IF YOU LIKE THIS, YOU MAY ALSO LIKE</h1>
                     <div className="recommended-list">
-                        <ul>
-                            <li>
-                                <Anime />
-                            </li>
-                            <li>
-                                <Anime />
-                            </li>
-                            <li>
-                                <Anime />
-                            </li>
-                            <li>
-                                <Anime />
-                            </li>
-                            <li>
-                                <Anime />
-                            </li>
-                            <li>
-                                <Anime />
-                            </li>
-                            <li>
-                                <Anime />
-                            </li>
-                            <li>
-                                <Anime />
-                            </li>
-                            <li>
-                                <Anime />
-                            </li>
-                            <li>
-                                <Anime />
-                            </li>
-                            <li>
-                                <Anime />
-                            </li>
-                        </ul>
+                        <ul>{similarAnimes}</ul>
                     </div>
                 </div>
             </div>

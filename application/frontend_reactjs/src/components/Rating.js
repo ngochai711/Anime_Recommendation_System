@@ -1,10 +1,10 @@
 import '../styles/anime.css';
 
 export default function Rating({ score }) {
-    const rating_star_1 = score > 1 ? "fa fa-star checked" : "fa fa-star un-checked"; 
-    const rating_star_2 = score > 3 ? "fa fa-star checked" : "fa fa-star un-checked"; 
-    const rating_star_3 = score > 5 ? "fa fa-star checked" : "fa fa-star un-checked"; 
-    const rating_star_4 = score > 7 ? "fa fa-star checked" : "fa fa-star un-checked"; 
+    const rating_star_1 = score > 1.5 ? "fa fa-star checked" : "fa fa-star un-checked"; 
+    const rating_star_2 = score > 3.5 ? "fa fa-star checked" : "fa fa-star un-checked"; 
+    const rating_star_3 = score > 5.5 ? "fa fa-star checked" : "fa fa-star un-checked"; 
+    const rating_star_4 = score > 7.5 ? "fa fa-star checked" : "fa fa-star un-checked"; 
     const rating_star_5 = score > 9 ? "fa fa-star checked" : "fa fa-star un-checked"; 
 
     return (

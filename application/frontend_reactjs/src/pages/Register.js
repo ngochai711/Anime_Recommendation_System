@@ -4,10 +4,10 @@ import { useAlert } from "react-alert";
 import '../styles/auth.css'
 
 export default function Register({ onLoggedIn }) {
-    const [email, setEmail] = useState(null);
-    const [username, setUsername] = useState(null);
-    const [password, setPassword] = useState(null);
-    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const alert = useAlert();
     const navigate = useNavigate();

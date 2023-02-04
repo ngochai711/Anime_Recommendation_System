@@ -35,8 +35,9 @@ export default function Login({ onLoggedIn }) {
             .then(response => {
                 if (response['msg'] === "Completed")
                 {
+                    console.log(response)
                     onLoggedIn(response['token']);
-                    navigate('/');
+                    navigate(`/${response['token']}`);
                 }
             }))
             .catch(error => {

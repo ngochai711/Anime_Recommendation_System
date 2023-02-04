@@ -7,23 +7,27 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { Route, Routes } from "react-router-dom";
 import { useState } from 'react';
+import SearchResults from './pages/SearchResults';
+import Account from './pages/Account';
 
 export default function App() {
-  const [userToken, setuserToken] = useState(null);
+  const [userToken, setuserToken] = useState("");
+  const [searchValue, setsearchValue] = useState(null);
 
   const onLoggedIn = (token) => {
-    console.log(token)
     setuserToken(token)
   }
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path='/details' element={<Details />} />
+        <Route path="/:token?" element={<Home />} />
+        <Route path="/favorites/:token?" element={<Favorites />} />
+        <Route path='/anime/:id' element={<Details token={ userToken }/>} />
+        <Route path='/account/:token?' element={<Account />} />
         <Route path='/login' element={<Login onLoggedIn={ onLoggedIn } />} />
         <Route path='/register' element={<Register onLoggedIn={ onLoggedIn } />} />
+        <Route path='/search/:query' element={<SearchResults />} />
       </Routes>
       <Header userToken={userToken} />
       <Footer />
