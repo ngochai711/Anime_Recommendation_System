@@ -29,7 +29,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "192.168.1.198:30002/",
+  "proxy": "https://abcdavid-knguyen.ddns.net:30002/",
   "browserslist": {
     "production": [
       ">0.2%",
