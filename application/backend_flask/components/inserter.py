@@ -198,7 +198,7 @@ def InsertAnimeImages(amount_per_anime, start_position):
         shape = anime_table.shape[0]
         for index, row in anime_table.iterrows():
             n = amount_per_anime
-            if index % 5 == 0: logging.debug(f"Currently at anime number {index} in total of {shape}")
+            if index % 5 == 0: logging.warning(f"Currently at anime number {index} in total of {shape}")
             image_list = get_original_images_custom(row['Name'])
             for key, value in image_list.items():
                 if int(key) <= n: 
@@ -207,7 +207,7 @@ def InsertAnimeImages(amount_per_anime, start_position):
                     if output[0] == False:
                         n += 1
                         temp_Session.rollback()
-                        logging.warning(f"Anime id {row['MAL_ID']} with link '{value}' got invalid response, skipping. Error: {output[1]}")
+                        logging.warning(f"  - Anime id {row['MAL_ID']} with link '{value}' got invalid response, skipping. Error: {output[1]}")
                     else: temp_Session.commit()
                 else: break
         return [True]

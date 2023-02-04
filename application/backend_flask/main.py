@@ -7,4 +7,4 @@ if __name__ == "__main__":
     print(App.url_map)
     App.run(debug=True)
     
-    # InsertAnimeImages(2, 376)
+    # InsertAnimeImages(2, 3270)
