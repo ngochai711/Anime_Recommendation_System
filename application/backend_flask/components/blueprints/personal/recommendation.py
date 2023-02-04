@@ -10,7 +10,7 @@ from components import dbmodels as dbm, dbschemas as dbs
 bprecommendation = Blueprint('bprecommendation', __name__)
 
 
-def account_output(message, error, info):
+def output(message, error, info):
    return jsonify({
       "msg": message, 
       "error": error, 
@@ -20,4 +20,8 @@ def account_output(message, error, info):
 @bprecommendation.route('/recommend', methods = ['GET'])
 @jwt_required()
 def getrecommendation():
-   pass
+   Session = new_Scoped_session()
+   try:
+      pass
+   except Exception as e:
+      return output("Incompleted", str(e), "")
