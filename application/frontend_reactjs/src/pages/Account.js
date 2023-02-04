@@ -15,8 +15,45 @@ export default function Account() {
     let { token } = useParams()
 
     const handleChange = (e) => {
-        console.log(e.target.files[0])
         setAvatar(URL.createObjectURL(e.target.files[0]))
+    }
+
+    const handleUsernameChange = (e) => {
+        setUsername(e.target.value)
+    }
+
+    const handleBirthChange = (e) => {
+        setBirth(e.target.value)
+    }
+
+    const handleGenderChange = (e) => {
+        setGender(e.target.value)
+    }
+
+    async function handleSaveInfo() {
+        console.log("username: ", username)
+        console.log("birth: ", birth)
+        console.log("gender: ",gender)
+        console.log("token: ",token)
+        await fetch(
+            `https://abcdavid-knguyen.ddns.net:30002/personal/info/set`,{
+                mode: "cors",
+                method: "POST",
+                headers: {
+                    'Authorization': `Bearer ` + token,
+                },
+                body: JSON.stringify({
+                    name: username,
+                    birth: birth,
+                    gender: gender
+                })
+            })
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
     useEffect(() => {
@@ -93,22 +130,22 @@ export default function Account() {
                             <div style={{ marginTop: "2rem" }}>
                                 <div className="info">
                                     <label className="auth-label">username</label>
-                                    <input className="auth-input" type="text"></input>
+                                    <input className="auth-input" type="text" onChange={e => handleUsernameChange(e)} value={username}></input>
                                 </div>
                                 <div className="info">
                                     <label className="auth-label">Birth</label>
-                                    <input className="auth-input" type="date"></input>
+                                    <input className="auth-input" type="date" onChange={e => handleBirthChange(e)} value={birth}></input>
                                 </div>
                                 <div className="info">
                                     <label className="auth-label">Gender</label>
-                                    <input className="auth-input" type="text"></input>
+                                    <input className="auth-input" type="text" onChange={e => handleGenderChange(e)} value={gender}></input>
                                 </div>
                             </div>
                         </div>
                         <button className="btn-2" style={{
                             marginTop: "2rem",
                             borderRadius: "10rem"
-                        }}>SAVE</button>
+                        }} onClick={handleSaveInfo}>SAVE</button>
                     </div>
                 </div>
             </div>
