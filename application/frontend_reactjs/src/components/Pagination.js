@@ -8,7 +8,7 @@ function Items({ currentItems }) {
         <div className="paginated-container">
             {currentItems &&
                 currentItems.map((item) => (
-                    <Anime id={item['ID'] !== null ? item : item['ID']}  margin={0.5} />
+                    <Anime id={item['ID'] === undefined ? item : item['ID'] }  margin={0.5} />
                 ))}
         </div>
     );
