@@ -188,12 +188,13 @@ def InsertAnimes(Session):
         return [False, str(e)]
     
 
-def InsertAnimeImages(amount_per_anime: int):
+def InsertAnimeImages(amount_per_anime, start_position):
     try:
         # old = Session.query(ImageAnime).all()
         # Session.remove(old)
         # Session.flush()
         anime_table = pd.read_csv(HOME_DIRECTORY + "../../dataset/db_anime.csv")
+        anime_table = anime_table[anime_table['MAL_ID'] >= start_position]
         shape = anime_table.shape[0]
         for index, row in anime_table.iterrows():
             n = amount_per_anime
