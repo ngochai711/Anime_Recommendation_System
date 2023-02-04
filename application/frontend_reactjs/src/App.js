@@ -12,7 +12,6 @@ import Account from './pages/Account';
 
 export default function App() {
   const [userToken, setuserToken] = useState("");
-  const [searchValue, setsearchValue] = useState(null);
 
   const onLoggedIn = (token) => {
     setuserToken(token)

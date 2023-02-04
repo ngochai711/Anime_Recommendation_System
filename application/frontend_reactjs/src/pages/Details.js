@@ -7,6 +7,7 @@ import '../styles/anime.css';
 
 export default function Details({ token }) {
     const [anime, setAnime] = useState(null)
+    const [posterId, setPosterId] = useState([])
     const [animePoster, setAnimePoster] = useState(null)
     const [animeGenres, setAnimeGenres] = useState(null)
     const [animeLisenses, setAnimeLisenses] = useState(null)
@@ -69,7 +70,7 @@ export default function Details({ token }) {
     const updateRate = async () => {
 
     }
-    useEffect(() => {
+    useEffect( () => {
         async function getDetail() {
             await fetch(
                 `https://abcdavid-knguyen.ddns.net:30002/search/detail/anime/${id}`, {
@@ -82,7 +83,7 @@ export default function Details({ token }) {
                     if (response["msg"] === "Completed") {   
                         setAnime(response['info']['anime'])
                         setAnimeInfo(response['info']['animeinfo'])
-
+                        setPosterId(response['info']['anime']["rel_ImageAnime"])
                         let genres = response['info']['anime']['Genres'].split(', ')
                         let genreRows = []
                         for (let i = 0; i < genres.length; i++)
@@ -106,28 +107,7 @@ export default function Details({ token }) {
                         setAnimeAiredTo(airedDate[1])
                     }
                 })
-                .catch(error => error.json()
-                .catch(error => {
-                    console.log(error)
-                }))
-        }
-
-        async function getPoster() {
-            await fetch(
-                `https://abcdavid-knguyen.ddns.net:30002/utils/imageanime/${id}`, {
-                    mode: "cors",
-                    method: "GET"
-                })
-                .then(response => response.json()
-                .then(response => {
-                    console.log(response)
-                    if (response["msg"] === "Completed") {   
-                    }
-                }))
-                .catch(error => error.json()
-                .catch(error => {
-                    console.log(error)
-                }))
+                .catch(error => console.log(error))
         }
 
         async function getSimilarAnimes() {
@@ -147,10 +127,9 @@ export default function Details({ token }) {
                             setSimilarAnimes(similarAnis)
                     }
                 }))
-                .catch(error => error.json()
                 .catch(error => {
                     console.log(error)
-                }))
+                })
         }
 
         async function getRating() {
@@ -177,12 +156,31 @@ export default function Details({ token }) {
                     console.log(error)
                 }))
         }
-
+        
         getDetail()
-        getPoster()
         getSimilarAnimes()
         getRating()
     },[id, token])
+
+    useEffect(() => {
+        async function getPoster() {
+            await fetch(
+                `https://abcdavid-knguyen.ddns.net:30002/utils/imageanime/${posterId[0]}`, {
+                    mode: "cors",
+                    method: "GET",
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    if (blob.type === "image/jpg") {
+                        let poster = URL.createObjectURL(blob) 
+                        setAnimePoster(poster)
+                    }
+                })
+                .catch(error => console.log(error))
+        }
+
+        getPoster()
+    }, [posterId])
 
     return (
         <div className="page" style={{ paddingTop: "3rem" }}>
@@ -194,7 +192,9 @@ export default function Details({ token }) {
                     <div className={"content-container-1 anime-overview"}>
                         <div style={{ width: "230px" }}>
                             <h1 className="title-2" style={{ textIndent: "0rem" }}>OVERVIEW</h1>
-                            <img src="https://m.media-amazon.com/images/M/MV5BZTI1MjY3N2YtODczMy00MGQwLWI2NWMtODQwZTE3NTY5OTExXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_.jpg" alt="poster"></img>
+                            <img src={animePoster !== null ? 
+                                animePoster : 
+                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSigkvS1zRk13D_wWyZrmK4kKaR0DsOSNzDmYC9m1Rk3NWhKsmD3s1uukJUhb1OEcs7nuQ&usqp=CAU"} alt="poster"></img>
                             { !isFavorite ? 
                                 <button className="btn-2" onClick={ handleFavorite  } >+ ADD TO LIST</button> :
                                 <div>

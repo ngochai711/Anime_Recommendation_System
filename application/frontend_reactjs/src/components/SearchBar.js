@@ -7,12 +7,12 @@ export default function SearchBar() {
     const navigate = useNavigate();
 
     const handleSearch = () => {
-        navigate(`/search/all?string=${input}&page=1&numperpage=100&sortby=score&order=desc`)
+        navigate(`/search/all?string=${input}&page=1&numperpage=50&sortby=score&order=desc`)
     }
 
     return (
         <div className="search-bar">
-            <input type="text" onChange={e => setInput(e.target.value)}></input>
+            <input type="text" placeholder="Search" onChange={e => setInput(e.target.value)}></input>
             <button className="search-btn" onClick={handleSearch}><i className="gg-search"></i></button>
         </div>
     );

@@ -11,7 +11,7 @@ export default function SearchResults() {
     useEffect(() => {
         async function handleSearch() {
             await fetch(
-                `https://abcdavid-knguyen.ddns.net:30002/search/all?string=${name}&page=1&numperpage=100&sortby=score&order=desc`, {
+                `https://abcdavid-knguyen.ddns.net:30002/search/all?string=${name}&page=1&numperpage=100&order=asc`, {
                     method: "GET"
                 })
                 .then(response => response.json()
